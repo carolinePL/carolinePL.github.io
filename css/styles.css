@@ -89,7 +89,7 @@ svg text{
 
 
 #secondary text.selected{
-  fill: #008cba !important;
+  fill: #5ca904 !important;
   font-weight: bold;
 }
 
@@ -125,7 +125,7 @@ svg text.alpha{
 
 .notes{
 	text-align:justify;
-	background-image: linear-gradient(140deg, #008cba0a, #008cba22);
+	background-image: linear-gradient(140deg, #5ca9040a, #5ca90422);
 
 	padding: 2em;
 	color: black;
@@ -142,7 +142,7 @@ svg text.alpha{
 
 .summary{
 	text-align:justify;
-	background-image: linear-gradient(140deg, #008cba0a, #008cba22);
+	background-image: linear-gradient(140deg, #5ca9040a, #5ca90422);
 
 	padding: 2em;
 	color: black;
@@ -197,13 +197,13 @@ svg text.alpha{
 
 
 .summary tr:nth-child(even){
-  background-color: #008cba33;
+  background-color: #5ca90433;
   %color: #fff;
 }
 
 
 .summary tr:nth-child(odd){
-  background-color: #008cba22;
+  background-color: #5ca90422;
   %color: #fff;
 }
 
@@ -258,17 +258,17 @@ table.maptable tr.refSeq td.deselected{
 
 
 table.maptable td.selected, th.selected {
-	background-color:#008cba;
+	background-color:#5ca904;
 	color:white;
 }
 
 
 #catalyticSVG g.selected polygon, #catalyticSVG g.selected rect, #catalyticSVG g.selected ellipse{
-	fill:#008cba !important;
+	fill:#5ca904 !important;
 }
 
 #catalyticSVG g.selected path{
-	stroke:#008cba !important;
+	stroke:#5ca904 !important;
 	stroke-width: 6px !important;
 }
 
@@ -315,7 +315,7 @@ table.maptable tr.refSeq{
 	margin-top: 1em;
 
 	text-align:justify;
-	background-image: linear-gradient(140deg, #008cba0a, #008cba22);
+	background-image: linear-gradient(140deg, #5ca9040a, #5ca90422);
 
 
 	padding: 2em;
@@ -377,7 +377,7 @@ div.svgDiv{
 #contents{
 	width: 500px;
 	padding: 1em;
-	background-image: linear-gradient(140deg, #008cba0a, #008cba22);
+	background-image: linear-gradient(140deg, #5ca9040a, #5ca90422);
 	border-style: solid;
 	border-color: #444;
 	border-radius: 0.3em;
@@ -404,7 +404,7 @@ div.svgDiv{
 }
 
 .dropdownDiv select{
-	background-color: #008cbadd;
+	background-color: #5ca904dd;
 	color: white;
 	padding: 0.8em;
 	font-size:0.85em;
@@ -418,7 +418,7 @@ div.svgDiv{
 }
 
 .button{
-	background-color: #008cbadd;
+	background-color: #5ca904dd;
 	color: white;
 	padding: 0.5em;
 	min-width: 200px;
@@ -456,22 +456,22 @@ div.svgDiv{
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #008cba33;
+  background: #5ca90433;
   %box-shadow: inset 0 0 5px black;
   border-radius: 10px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #008cba77;
-  box-shadow: inset 0 0 5px #008cba;
+  background: #5ca90477;
+  box-shadow: inset 0 0 5px #5ca904;
   border-radius: 10px;
   
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #008cbadd;
+  background: #5ca904dd;
   cursor:grab;
 }
 
@@ -479,7 +479,7 @@ div.svgDiv{
 #header {
 	width:100%;
 	height:6em;
-	background-image: linear-gradient(140deg, #008cba77, #008cba94);
+	background-image: linear-gradient(140deg, #5ca90477, #5ca90494);
 }
 
 
@@ -507,7 +507,7 @@ div.svgDiv{
 
 /* Dropdown Button */
 .dropbtn {
-  background-color: #008cbacc;
+  background-color: #5ca904cc;
   color: white;
   padding: 1.2em;
   font-size: 1.1em;
@@ -548,12 +548,12 @@ div.svgDiv{
 .dropdown:hover .dropdown-content {display: block;}
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {background-color: #008cba;}
+.dropdown:hover .dropbtn {background-color: #5ca904;}
 
 #footer {
 	width:100%;
 	height:40px;
-	background-image: linear-gradient(140deg, #008cba77, #008cba94);
+	background-image: linear-gradient(140deg, #5ca90477, #5ca90494);
 }
 
 
@@ -591,7 +591,7 @@ div.svgDiv{
 	border-width:1px;
 	border-radius:0px 1.5em 1.5em 1.5em;
 	background-color:white;
-	%background-image: linear-gradient(140deg, #008cba77, #008cba94);
+	%background-image: linear-gradient(140deg, #5ca90477, #5ca90494);
 	padding-top:0.1em;
 	padding-bottom:0.1em;
 	position:absolute;
@@ -636,8 +636,8 @@ div.svgDiv{
 
 
 #metadataDlg tr:nth-child(even){
-  %background-color: #008cba22;
-  %background-image: linear-gradient(140deg, #008cba44, #008cba22);
+  %background-color: #5ca90422;
+  %background-image: linear-gradient(140deg, #5ca90444, #5ca90422);
   %color: #fff;
 }
 

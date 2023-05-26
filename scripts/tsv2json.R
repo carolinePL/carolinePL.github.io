@@ -7,7 +7,7 @@ if (length(args) != 2){
 	stop("Use: Rscript tsv2json.R <file.tsv> <idCol>")
 }
 
-in.df = read.table(args[1], sep="\t", header=T, quote="`")
+in.df = read.table(args[1], sep=",", header=T, quote="`")
 idCol = args[2]
 if (!any(colnames(in.df) == idCol)){
 	stop(paste("Cannot find column", idCol))
@@ -24,7 +24,7 @@ for (id in in.df[,idCol]){
 
 
 exportJSON <- toJSON(JSON, indent=4)
-outfile = gsub("[.]tsv", ".json", args[1])
+outfile = gsub("[.]csv", ".json", args[1])
 if (outfile == args[1]){
 	outfile = paste0(args[1], ".json")
 }

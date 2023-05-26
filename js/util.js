@@ -9,68 +9,21 @@ function renderHeader(includeFooter = true){
 
   
   // Header, footer
-  $("body").prepend("<div id='header'><span class='title'>URZYME.GITHUB.IO</span></div>")
+  $("body").prepend("<div id='header'><span class='title'>BACTERIAL FLAGELLUM</span></div>")
 
   if (includeFooter){
     $("body").append("<div id='footer'></div>")
   }
   
   $("#header").append(`<div id='class2Selector' class='dropdown'>
-						<button class='dropbtn'>Class II</button>
+						<button class='dropbtn'>Flagellar proteins</button>
 							<div class='dropdown-content'>
 							</div>
 						</button>
 					   </div>`);
 					   
-	$("#header").append(`<div id='class1Selector' class='dropdown'>
-						<button class='dropbtn'>Class I</button>
-							<div class='dropdown-content'>
-							</div>
-						</button>
-					   </div>`);		
-
 	// Class 1
-	$("#class1Selector div").append(`<a href='/class1/'><b>Home</b></a>`);
-	$("#class1Selector div").append(`<a href='/class1/arg'>ArgRS</a>`);
-	$("#class1Selector div").append(`<a href='/class1/cys'>CysRS</a>`);
-	$("#class1Selector div").append(`<a href='/class1/gln'>GlnRS</a>`);
-	$("#class1Selector div").append(`<a href='/class1/glu1'>GluRS</a>`);
-	$("#class1Selector div").append(`<a href='/class1/glu2'>GlxRS</a>`);
-	$("#class1Selector div").append(`<a href='/class1/ile'>IleRS</a>`);
-	$("#class1Selector div").append(`<a href='/class1/leu2'>LeuRS (arch)</a>`);
-	$("#class1Selector div").append(`<a href='/class1/leu1'>LeuRS (bact)</a>`);
-	$("#class1Selector div").append(`<a href='/class1/lys'>LysRS-I</a>`);
-	$("#class1Selector div").append(`<a href='/class1/met'>MetRS</a>`);
-	$("#class1Selector div").append(`<a href='/class1/trp1'>TrpRS (arch)</a>`);
-	$("#class1Selector div").append(`<a href='/class1/trp2'>TrpRS (bact)</a>`);
-	$("#class1Selector div").append(`<a href='/class1/tyr'>TyrRS</a>`);
-	$("#class1Selector div").append(`<a href='/class1/val'>ValRS</a>`);
-
-
-	// Class 2
-	$("#class2Selector div").append(`<a href='/class2/'><b>Home</b></a>`);
-	$("#class2Selector div").append(`<a href='/class2/ala'>AlaRS</a>`);
-	$("#class2Selector div").append(`<a href='/class2/asn'>AsnRS</a>`);
-	$("#class2Selector div").append(`<a href='/class2/asp1'>AspRS</a>`);
-	$("#class2Selector div").append(`<a href='/class2/asp2'>AsxRS</a>`);
-	$("#class2Selector div").append(`<a href='/class2/gly1'>GlyRS (arch)</a>`);
-	$("#class2Selector div").append(`<a href='/class2/gly2'>GlyRS (bact)</a>`);
-	$("#class2Selector div").append(`<a href='/class2/gly3'>GlyRS (euk)</a>`);
-	$("#class2Selector div").append(`<a href='/class2/his'>HisRS</a>`);
-	$("#class2Selector div").append(`<a href='/class2/lys'>LysRS-II</a>`);
-	$("#class2Selector div").append(`<a href='/class2/phe3'>PheRS (arch &alpha;)</a>`);
-  $("#class2Selector div").append(`<a href='/class2/phe4'>PheRS (arch &beta;)</a>`);
-	$("#class2Selector div").append(`<a href='/class2/phe1'>PheRS (bact &alpha;)</a>`);
-	$("#class2Selector div").append(`<a href='/class2/phe2'>PheRS (bact &beta;)</a>`);
-	$("#class2Selector div").append(`<a href='/class2/phe5'>PheRS (mito)</a>`);
-	$("#class2Selector div").append(`<a href='/class2/pro1'>ProRS (arch)</a>`);
-	$("#class2Selector div").append(`<a href='/class2/pro2'>ProRS (bact)</a>`);
-	$("#class2Selector div").append(`<a href='/class2/pyl'>PylRS</a>`);
-	$("#class2Selector div").append(`<a href='/class2/sep'>SepRS</a>`);
-	$("#class2Selector div").append(`<a href='/class2/ser1'>SerRS</a>`);
-	$("#class2Selector div").append(`<a href='/class2/ser2'>SerRS (arch)</a>`);
-	$("#class2Selector div").append(`<a href='/class2/thr'>ThrRS</a>`);
-
+	$("#class1Selector div").append(`<a href='/alignment/motA/'>motA</a>`);
 
 }
 
