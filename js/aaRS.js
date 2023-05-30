@@ -178,9 +178,6 @@ function renderaaRS(isPairwise = false, isSuperfamily = false){
   $("#secondary").after(`<div class='helperNote'>
 							<span><img src="/fig/Archaea.png"  height="` + imgWidth + `px"></img> - Archaea </span>
 							<span><img src="/fig/Bacteria.png"  height="` + imgWidth + `px"></img> - Bacteria </span>
-							<span><img src="/fig/Eukaryota.png"  height="` + imgWidth + `px"></img> - Eukaryota </span>
-							<span><img src="/fig/Mitochondrial.png"  height="` + imgWidth + `px"></img> - Eukaryotic organelle </span>
-							<span><img src="/fig/Viruses.png"  height="` + imgWidth + `px"></img> - Virus </span>
 							<span><img src="/fig/xray.png" height="` + imgWidth + `px"></img> - Solved structure </span>
 							<span><img src="/fig/alphafold.png"  height="` + imgWidth + `px"></img> - Computational prediction </span>
 						</div>`);
@@ -235,7 +232,7 @@ function renderaaRS(isPairwise = false, isSuperfamily = false){
 	let dropdowns = $("#tertiaryTable").find(".colouring");
 	for (let d = 0; d < dropdowns.length; d ++){
 		let dropdownCol = $(dropdowns[d]).find("select");
-		if (d == 0) dropdownCol.append("<option value='byChain'>Chain</option>");
+		dropdownCol.append("<option value='byChain'>Chain</option>");
 		dropdownCol.append("<option value='rainbow'>Position</option>");
 		dropdownCol.append("<option value='bySS'>Secondary structure</option>");
 		dropdownCol.append("<option value='ssSuccession'>Secondary structure succession</option>");
@@ -1022,6 +1019,23 @@ function renderSecondary(svg){
 		  								<th>Phylum</th>
 		  								<td>` + metadata.phylum + `</td>
 		  							</tr>`);
+
+				$("#metadataDlg table").append(`<tr>
+							<th>Class</th>
+							<td>` + metadata.class + `</td>
+						</tr>`);
+
+
+				$("#metadataDlg table").append(`<tr>
+							<th>Order</th>
+							<td>` + metadata.order + `</td>
+						</tr>`);
+
+
+					$("#metadataDlg table").append(`<tr>
+							<th>Genus</th>
+							<td>` + metadata.genus + `</td>
+						</tr>`);
 									
 				$("#metadataDlg table").append(`<tr>
 		  								<th>Species</th>
@@ -1061,10 +1075,6 @@ function renderSecondary(svg){
 											</tr>`);
 					}
 										
-					$("#metadataDlg table").append(`<tr>
-											<th>Genetic code</th>
-											<td><a target="_blank" href="https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi#SG` + metadata.transl_table + `">` + metadata.transl_table + `</a></td>
-										</tr>`);
 										
 					$("#metadataDlg table").append(`<tr>
 											<th>Structure</th>

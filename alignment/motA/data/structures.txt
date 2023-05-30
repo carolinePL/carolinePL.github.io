@@ -1,5 +1,0 @@
-structures/ACX76601_smDom.pdb
-structures/ADB15801_smDom.pdb
-structures/AEO48101_smDom.pdb
-structures/Aaeolicus_motA_8gqy.pdb
-structures/ExbB_Ecoli_5sv0.pdb
