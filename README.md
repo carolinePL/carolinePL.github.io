@@ -1,17 +1,6 @@
 # Bacterial flagellum proteins
 
-### Dependencies
-
-**DeepAlign.** This is used for generating protein structure alignments and can be downloaded here:
-https://github.com/realbigws/DeepAlign
-
-
-It is assumed that the DeepAlign directory is installed in the home directory ```~/DeepAlign```
-
-
-**DSSP.** This is used for defining secondary structures from pdb files. It can be installed using 
-```sudo apt-get install dssp```
-
+Website can be viewed at carolinepl.github.io
 
 
 ## Aligning
@@ -24,6 +13,8 @@ or to only align a single protein dataset use:
 cd alignment/mota/
 bash ../../scripts/align.sh
 ```
+
+
 
 
 ## Updating metadata
@@ -49,5 +40,22 @@ Then open the local host in the web-browser. For many machines this address is:
 ``
 http://localhost:8080/
 ``
+
+
+### Dependencies
+
+These dependencies may be needed to edit the website locally.
+
+**DeepAlign.** This is used for generating protein structure alignments and can be downloaded here:
+https://github.com/realbigws/DeepAlign
+
+
+It is assumed that the DeepAlign directory is installed in the home directory ```~/DeepAlign```
+
+
+**DSSP.** This is used for defining secondary structures from pdb files. It can be installed using 
+```sudo apt-get install dssp```
+
+**R.** Most scripts were written in R.
 
 
