@@ -4,11 +4,11 @@
 		"classID": "class1",
 		"fullName": "Flagellar protein motB",
 		"icon": "/fig/icon_white.png",
-
-
+		"refine": [{"start": 1, "stop": 250}],
 		"features": {
 			
-			
+			"Transmembrane domain": {"acc": "AAC74959.1.pdb", "range": "25-50", "level": 4},
+			"Plug": {"acc": "AAC74959.1.pdb", "range": "52-72", "level": 4, "count": 1}
 			
 
 		

@@ -1,5 +1,6 @@
 structures/2pfu.pdb
 structures/AAC73832.1.pdb
+structures/AAC74959.1.pdb
 structures/AAG04083.1.pdb
 structures/ABF89902.1.pdb
 structures/ABF91400.1.pdb

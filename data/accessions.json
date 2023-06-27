@@ -17,7 +17,15 @@
         "protein":"AAC73831",
         "transl_table":        "NA",
         "desc":"Tol-Pal system protein TolQ",
-        "sequence":        "NA"
+        "sequence":        "NA",
+        "X":        "NA",
+        "X.1":        "NA",
+        "X.2":        "NA",
+        "X.3":        "NA",
+        "X.4":        "NA",
+        "X.5":        "NA",
+        "X.6":        "NA",
+        "X.7":        "NA"
     },
     "AAC76042":{
         "superfamily":"mota",
@@ -37,7 +45,15 @@
         "protein":"AAC76042",
         "transl_table":        "NA",
         "desc":"Ton complex subunit ExbB",
-        "sequence":        "NA"
+        "sequence":        "NA",
+        "X":        "NA",
+        "X.1":        "NA",
+        "X.2":        "NA",
+        "X.3":        "NA",
+        "X.4":        "NA",
+        "X.5":        "NA",
+        "X.6":        "NA",
+        "X.7":        "NA"
     },
     "AAG04082":{
         "superfamily":"mota",
@@ -57,7 +73,15 @@
         "protein":"AAG04082",
         "transl_table":        "NA",
         "desc":"transport protein ExbB2",
-        "sequence":        "NA"
+        "sequence":        "NA",
+        "X":        "NA",
+        "X.1":        "NA",
+        "X.2":        "NA",
+        "X.3":        "NA",
+        "X.4":        "NA",
+        "X.5":        "NA",
+        "X.6":        "NA",
+        "X.7":        "NA"
     },
     "ABF90492":{
         "superfamily":"mota",
@@ -77,7 +101,15 @@
         "protein":"ABF90492",
         "transl_table":        "NA",
         "desc":"MotA/TolQ/ExbB proton channel family protein",
-        "sequence":        "NA"
+        "sequence":        "NA",
+        "X":        "NA",
+        "X.1":        "NA",
+        "X.2":        "NA",
+        "X.3":        "NA",
+        "X.4":        "NA",
+        "X.5":        "NA",
+        "X.6":        "NA",
+        "X.7":        "NA"
     },
     "ABF91581":{
         "superfamily":"mota",
@@ -97,7 +129,15 @@
         "protein":"ABF91581",
         "transl_table":        "NA",
         "desc":"transporter MotA/TolQ/ExbB proton channel family",
-        "sequence":        "NA"
+        "sequence":        "NA",
+        "X":        "NA",
+        "X.1":        "NA",
+        "X.2":        "NA",
+        "X.3":        "NA",
+        "X.4":        "NA",
+        "X.5":        "NA",
+        "X.6":        "NA",
+        "X.7":        "NA"
     },
     "ABF92363":{
         "superfamily":"mota",
@@ -117,7 +157,15 @@
         "protein":"ABF92363",
         "transl_table":        "NA",
         "desc":"transporter MotA/TolQ/ExbB proton channel family",
-        "sequence":        "NA"
+        "sequence":        "NA",
+        "X":        "NA",
+        "X.1":        "NA",
+        "X.2":        "NA",
+        "X.3":        "NA",
+        "X.4":        "NA",
+        "X.5":        "NA",
+        "X.6":        "NA",
+        "X.7":        "NA"
     },
     "ABF92421":{
         "superfamily":"mota",
@@ -137,7 +185,15 @@
         "protein":"ABF92421",
         "transl_table":        "NA",
         "desc":"tonB system transport protein ExbB/TolQ",
-        "sequence":        "NA"
+        "sequence":        "NA",
+        "X":        "NA",
+        "X.1":        "NA",
+        "X.2":        "NA",
+        "X.3":        "NA",
+        "X.4":        "NA",
+        "X.5":        "NA",
+        "X.6":        "NA",
+        "X.7":        "NA"
     },
     "ACX73657":{
         "superfamily":"mota",
@@ -157,7 +213,15 @@
         "protein":"ACX73657",
         "transl_table":        "NA",
         "desc":"MotA/TolQ/ExbB proton channel",
-        "sequence":        "NA"
+        "sequence":        "NA",
+        "X":        "NA",
+        "X.1":        "NA",
+        "X.2":        "NA",
+        "X.3":        "NA",
+        "X.4":        "NA",
+        "X.5":        "NA",
+        "X.6":        "NA",
+        "X.7":        "NA"
     },
     "ADD68377":{
         "superfamily":"mota",
@@ -177,7 +241,15 @@
         "protein":"ADD68377",
         "transl_table":        "NA",
         "desc":"MotA/TolQ/ExbB proton channel",
-        "sequence":        "NA"
+        "sequence":        "NA",
+        "X":        "NA",
+        "X.1":        "NA",
+        "X.2":        "NA",
+        "X.3":        "NA",
+        "X.4":        "NA",
+        "X.5":        "NA",
+        "X.6":        "NA",
+        "X.7":        "NA"
     },
     "AHZ83417":{
         "superfamily":"mota",
@@ -197,7 +269,15 @@
         "protein":"AHZ83417",
         "transl_table":        "NA",
         "desc":"motility protein A",
-        "sequence":        "NA"
+        "sequence":        "NA",
+        "X":        "NA",
+        "X.1":        "NA",
+        "X.2":        "NA",
+        "X.3":        "NA",
+        "X.4":        "NA",
+        "X.5":        "NA",
+        "X.6":        "NA",
+        "X.7":        "NA"
     },
     "AHZ86092":{
         "superfamily":"mota",
@@ -217,7 +297,15 @@
         "protein":"AHZ86092",
         "transl_table":        "NA",
         "desc":"tolQ protein",
-        "sequence":        "NA"
+        "sequence":        "NA",
+        "X":        "NA",
+        "X.1":        "NA",
+        "X.2":        "NA",
+        "X.3":        "NA",
+        "X.4":        "NA",
+        "X.5":        "NA",
+        "X.6":        "NA",
+        "X.7":        "NA"
     },
     "AJJ31614":{
         "superfamily":"mota",
@@ -237,7 +325,15 @@
         "protein":"AJJ31614",
         "transl_table":        "NA",
         "desc":"tonB-system energizer ExbB",
-        "sequence":        "NA"
+        "sequence":        "NA",
+        "X":        "NA",
+        "X.1":        "NA",
+        "X.2":        "NA",
+        "X.3":        "NA",
+        "X.4":        "NA",
+        "X.5":        "NA",
+        "X.6":        "NA",
+        "X.7":        "NA"
     },
     "AJJ31712":{
         "superfamily":"mota",
@@ -257,7 +353,15 @@
         "protein":"AJJ31712",
         "transl_table":        "NA",
         "desc":"protein TolQ",
-        "sequence":        "NA"
+        "sequence":        "NA",
+        "X":        "NA",
+        "X.1":        "NA",
+        "X.2":        "NA",
+        "X.3":        "NA",
+        "X.4":        "NA",
+        "X.5":        "NA",
+        "X.6":        "NA",
+        "X.7":        "NA"
     },
     "APC07901":{
         "superfamily":"mota",
@@ -277,7 +381,15 @@
         "protein":"APC07901",
         "transl_table":        "NA",
         "desc":"chemotaxis protein PomA",
-        "sequence":        "NA"
+        "sequence":        "NA",
+        "X":        "NA",
+        "X.1":        "NA",
+        "X.2":        "NA",
+        "X.3":        "NA",
+        "X.4":        "NA",
+        "X.5":        "NA",
+        "X.6":        "NA",
+        "X.7":        "NA"
     },
     "AQU99646":{
         "superfamily":"mota",
@@ -297,7 +409,15 @@
         "protein":"AQU99646",
         "transl_table":        "NA",
         "desc":"MotA",
-        "sequence":        "NA"
+        "sequence":        "NA",
+        "X":        "NA",
+        "X.1":        "NA",
+        "X.2":        "NA",
+        "X.3":        "NA",
+        "X.4":        "NA",
+        "X.5":        "NA",
+        "X.6":        "NA",
+        "X.7":        "NA"
     },
     "QAR33783":{
         "superfamily":"mota",
@@ -317,7 +437,15 @@
         "protein":"QAR33783",
         "transl_table":        "NA",
         "desc":"MotA/TolQ/ExbB proton channel family protein",
-        "sequence":        "NA"
+        "sequence":        "NA",
+        "X":        "NA",
+        "X.1":        "NA",
+        "X.2":        "NA",
+        "X.3":        "NA",
+        "X.4":        "NA",
+        "X.5":        "NA",
+        "X.6":        "NA",
+        "X.7":        "NA"
     },
     "QEO41016":{
         "superfamily":"mota",
@@ -337,7 +465,15 @@
         "protein":"QEO41016",
         "transl_table":        "NA",
         "desc":"protein TolQ",
-        "sequence":        "NA"
+        "sequence":        "NA",
+        "X":        "NA",
+        "X.1":        "NA",
+        "X.2":        "NA",
+        "X.3":        "NA",
+        "X.4":        "NA",
+        "X.5":        "NA",
+        "X.6":        "NA",
+        "X.7":        "NA"
     },
     "QEO41299":{
         "superfamily":"mota",
@@ -357,7 +493,15 @@
         "protein":"QEO41299",
         "transl_table":        "NA",
         "desc":"MotA/TolQ/ExbB proton channel family protein",
-        "sequence":        "NA"
+        "sequence":        "NA",
+        "X":        "NA",
+        "X.1":        "NA",
+        "X.2":        "NA",
+        "X.3":        "NA",
+        "X.4":        "NA",
+        "X.5":        "NA",
+        "X.6":        "NA",
+        "X.7":        "NA"
     },
     "6tyi":{
         "superfamily":"mota",
@@ -377,7 +521,15 @@
         "protein":"",
         "transl_table":        "NA",
         "desc":"ExbB-ExbD complex in MSP1E3D1 nanodisc",
-        "sequence":        "NA"
+        "sequence":        "NA",
+        "X":        "NA",
+        "X.1":        "NA",
+        "X.2":        "NA",
+        "X.3":        "NA",
+        "X.4":        "NA",
+        "X.5":        "NA",
+        "X.6":        "NA",
+        "X.7":        "NA"
     },
     "6ysl":{
         "superfamily":"mota",
@@ -397,7 +549,15 @@
         "protein":"",
         "transl_table":        "NA",
         "desc":"Structure of the flagellar MotAB stator complex from Bacillus subtilis",
-        "sequence":        "NA"
+        "sequence":        "NA",
+        "X":        "NA",
+        "X.1":        "NA",
+        "X.2":        "NA",
+        "X.3":        "NA",
+        "X.4":        "NA",
+        "X.5":        "NA",
+        "X.6":        "NA",
+        "X.7":        "NA"
     },
     "2pfu":{
         "superfamily":"motb",
@@ -417,7 +577,15 @@
         "protein":"",
         "transl_table":        "NA",
         "desc":"NMR structure determination of the periplasmic domain of ExbD from E.coli",
-        "sequence":        "NA"
+        "sequence":        "NA",
+        "X":        "NA",
+        "X.1":        "NA",
+        "X.2":        "NA",
+        "X.3":        "NA",
+        "X.4":        "NA",
+        "X.5":        "NA",
+        "X.6":        "NA",
+        "X.7":        "NA"
     },
     "AAC73832.1":{
         "superfamily":"motb",
@@ -437,7 +605,15 @@
         "protein":"AAC73832.1",
         "transl_table":        "NA",
         "desc":"",
-        "sequence":        "NA"
+        "sequence":        "NA",
+        "X":        "NA",
+        "X.1":        "NA",
+        "X.2":        "NA",
+        "X.3":        "NA",
+        "X.4":        "NA",
+        "X.5":        "NA",
+        "X.6":        "NA",
+        "X.7":        "NA"
     },
     "AAG04083.1":{
         "superfamily":"motb",
@@ -457,7 +633,15 @@
         "protein":"AAG04083.1",
         "transl_table":        "NA",
         "desc":"",
-        "sequence":        "NA"
+        "sequence":        "NA",
+        "X":        "NA",
+        "X.1":        "NA",
+        "X.2":        "NA",
+        "X.3":        "NA",
+        "X.4":        "NA",
+        "X.5":        "NA",
+        "X.6":        "NA",
+        "X.7":        "NA"
     },
     "ABF89902.1":{
         "superfamily":"motb",
@@ -477,7 +661,15 @@
         "protein":"ABF89902.1",
         "transl_table":        "NA",
         "desc":"",
-        "sequence":        "NA"
+        "sequence":        "NA",
+        "X":        "NA",
+        "X.1":        "NA",
+        "X.2":        "NA",
+        "X.3":        "NA",
+        "X.4":        "NA",
+        "X.5":        "NA",
+        "X.6":        "NA",
+        "X.7":        "NA"
     },
     "ABF91400.1":{
         "superfamily":"motb",
@@ -497,7 +689,15 @@
         "protein":"ABF91400.1",
         "transl_table":        "NA",
         "desc":"",
-        "sequence":        "NA"
+        "sequence":        "NA",
+        "X":        "NA",
+        "X.1":        "NA",
+        "X.2":        "NA",
+        "X.3":        "NA",
+        "X.4":        "NA",
+        "X.5":        "NA",
+        "X.6":        "NA",
+        "X.7":        "NA"
     },
     "ABF91848.1":{
         "superfamily":"motb",
@@ -517,7 +717,15 @@
         "protein":"ABF91848.1",
         "transl_table":        "NA",
         "desc":"",
-        "sequence":        "NA"
+        "sequence":        "NA",
+        "X":        "NA",
+        "X.1":        "NA",
+        "X.2":        "NA",
+        "X.3":        "NA",
+        "X.4":        "NA",
+        "X.5":        "NA",
+        "X.6":        "NA",
+        "X.7":        "NA"
     },
     "ABF92022.1":{
         "superfamily":"motb",
@@ -537,7 +745,15 @@
         "protein":"ABF92022.1",
         "transl_table":        "NA",
         "desc":"",
-        "sequence":        "NA"
+        "sequence":        "NA",
+        "X":        "NA",
+        "X.1":        "NA",
+        "X.2":        "NA",
+        "X.3":        "NA",
+        "X.4":        "NA",
+        "X.5":        "NA",
+        "X.6":        "NA",
+        "X.7":        "NA"
     },
     "ADD68375.1":{
         "superfamily":"motb",
@@ -557,7 +773,15 @@
         "protein":"ADD68375.1",
         "transl_table":        "NA",
         "desc":"",
-        "sequence":        "NA"
+        "sequence":        "NA",
+        "X":        "NA",
+        "X.1":        "NA",
+        "X.2":        "NA",
+        "X.3":        "NA",
+        "X.4":        "NA",
+        "X.5":        "NA",
+        "X.6":        "NA",
+        "X.7":        "NA"
     },
     "QAR33782.1":{
         "superfamily":"motb",
@@ -577,6 +801,42 @@
         "protein":"QAR33782.1",
         "transl_table":        "NA",
         "desc":"",
-        "sequence":        "NA"
+        "sequence":        "NA",
+        "X":        "NA",
+        "X.1":        "NA",
+        "X.2":        "NA",
+        "X.3":        "NA",
+        "X.4":        "NA",
+        "X.5":        "NA",
+        "X.6":        "NA",
+        "X.7":        "NA"
+    },
+    "AAC74959.1":{
+        "superfamily":"motb",
+        "familyID":"motb",
+        "name":"MotB",
+        "accession":"AAC74959.1",
+        "domain":"Bacteria",
+        "phylum":"Pseudomonadota",
+        "class":"Gammaproteobacteria",
+        "order":"Enterobacterales",
+        "family":"Enterobacteriaceae",
+        "genus":"Escherichia",
+        "species":"Escherichia coli K-12",
+        "pdb":"",
+        "genbank":"",
+        "gene":        "NA",
+        "protein":"AAC74959.1",
+        "transl_table":        "NA",
+        "desc":"motility protein B",
+        "sequence":        "NA",
+        "X":        "NA",
+        "X.1":        "NA",
+        "X.2":        "NA",
+        "X.3":        "NA",
+        "X.4":        "NA",
+        "X.5":        "NA",
+        "X.6":        "NA",
+        "X.7":        "NA"
     }
 }
