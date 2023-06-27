@@ -1,21 +1,30 @@
-superfamily,familyID,name,accession,domain,phylum,class,order,family,genus,species,pdb,genbank,gene,protein,transl_table,desc,sequence
-mota,mota,TolQ,AAC73831,Bacteria,Pseudomonadota,Gammaproteobacteria,Enterobacterales,Enterobacteriaceae,Escherichia,Escherichia coli K-12,,U00096.3,,AAC73831,,Tol-Pal system protein TolQ,
-mota,mota,ExbB,AAC76042,Bacteria,Pseudomonadota,Gammaproteobacteria,Enterobacterales,Enterobacteriaceae,Escherichia,Escherichia coli K-12,,U00096.3,,AAC76042,,Ton complex subunit ExbB,
-mota,mota,ExbB,AAG04082,Bacteria,Pseudomonadota,Gammaproteobacteria,Pseudomonadales,Pseudomonadaceae,Pseudomonas,Pseudomonas aeruginosa,,AE004091.2,,AAG04082,,transport protein ExbB2,
-mota,mota,Unknown 1,ABF90492,Bacteria,Pseudomonadota,Deltaproteobacteria,Myxococcales,Myxococcaceae,Myxococcus,Myxococcus xanthus,,CP000113.1,,ABF90492,,MotA/TolQ/ExbB proton channel family protein,
-mota,mota,Unknown 2,ABF91581,Bacteria,Pseudomonadota,Deltaproteobacteria,Myxococcales,Myxococcaceae,Myxococcus,Myxococcus xanthus,,CP000113.1,,ABF91581,,transporter MotA/TolQ/ExbB proton channel family,
-mota,mota,Unknown 3 ,ABF92363,Bacteria,Pseudomonadota,Deltaproteobacteria,Myxococcales,Myxococcaceae,Myxococcus,Myxococcus xanthus,,CP000113.1,,ABF92363,,transporter MotA/TolQ/ExbB proton channel family,
-mota,mota,motA,ABF92421,Bacteria,Pseudomonadota,Deltaproteobacteria,Myxococcales,Myxococcaceae,Myxococcus,Myxococcus xanthus,,CP000113.1,,ABF92421,,tonB system transport protein ExbB/TolQ,
-mota,mota,Unknown,ACX73657,Bacteria,Fibrobacteres,Fibrobacteria,Fibrobacterales,Fibrobacteraceae,Fibrobacter,Fibrobacter succinogenes,,CP001792.1,,ACX73657,,MotA/TolQ/ExbB proton channel,
-mota,mota,Unknown,ADD68377,Bacteria,Deferribacteres,Deferribacteres,Deferribacterales,Geovibrionaceae,Denitrovibrio,Denitrovibrio acetiphilus,,CP001968.1,,ADD68377,,MotA/TolQ/ExbB proton channel,
-mota,mota,motA,AHZ83417,Bacteria,Pseudomonadota,Oligoflexia,Bdellovibrionales,Pseudobdellovibrionaceae,Bdellovibrio,Bdellovibrio bacteriovorus,,CP007656.1,,AHZ83417,,motility protein A,
-mota,mota,tolQ,AHZ86092,Bacteria,Pseudomonadota,Oligoflexia,Bdellovibrionales,Pseudobdellovibrionaceae,Bdellovibrio,Bdellovibrio bacteriovorus,,CP007656.1,,AHZ86092,,tolQ protein,
-mota,mota,ExbB,AJJ31614,Bacteria,Pseudomonadota,Gammaproteobacteria,Enterobacterales,Yersiniaceae,Yersinia,Yersinia pestis,,CP009844.1,,AJJ31614,,tonB-system energizer ExbB,
-mota,mota,TolQ,AJJ31712,Bacteria,Pseudomonadota,Gammaproteobacteria,Enterobacterales,Yersiniaceae,Yersinia,Yersinia pestis,,CP009844.1,,AJJ31712,,protein TolQ,
-mota,mota,PomA,APC07901,Bacteria,Bacillota,Clostridia,Thermoanaerobacterales,Thermoanaerobacteraceae,Moorella,Moorella thermoacetica,,CP017237.1,,APC07901,,chemotaxis protein PomA,
-mota,mota,motA,AQU99646,Bacteria,Pseudomonadota,Deltaproteobacteria,Desulfobacterales,Desulfobacteraceae,Desulfococcus,Desulfococcus multivorans,,CP019913.2,,AQU99646,,MotA,
-mota,mota,Unknown,QAR33783,Bacteria,Deferribacteres,Deferribacteres,Deferribacterales,Geovibrionaceae,Geovibrio,Geovibrio thiophilus,,CP035108.1,,QAR33783,,MotA/TolQ/ExbB proton channel family protein,
-mota,mota,TolQ,QEO41016,Bacteria,Pseudomonadota,Gammaproteobacteria,Vibrionales,Vibrionaceae,Vibrio,Vibrio cholerae,,CP043554.1,,QEO41016,,protein TolQ,
-mota,mota,Unknown,QEO41299,Bacteria,Pseudomonadota,Gammaproteobacteria,Vibrionales,Vibrionaceae,Vibrio,Vibrio cholerae,,CP043554.1,,QEO41299,,MotA/TolQ/ExbB proton channel family protein,
-mota,mota,ExdB,6tyi,Bacteria,Pseudomonadota,Gammaproteobacteria,Enterobacterales,Enterobacteriaceae,Escherichia,Escherichia coli K-12,6tyi,,,,,ExbB-ExbD complex in MSP1E3D1 nanodisc,
-mota,mota,MotAB,6ysl,Bacteria,Bacillota,Bacilli,Bacillales,Bacillaceae,Bacillus,Bacillus subtilis,6ysl,,,,,Structure of the flagellar MotAB stator complex from Bacillus subtilis,
+superfamily	familyID	name	accession	domain	phylum	class	order	family	genus	species	pdb	genbank	gene	protein	transl_table	desc	sequence
+mota	mota	TolQ	AAC73831	Bacteria	Pseudomonadota	Gammaproteobacteria	Enterobacterales	Enterobacteriaceae	Escherichia	Escherichia coli K-12		U00096.3		AAC73831		Tol-Pal system protein TolQ	
+mota	mota	ExbB	AAC76042	Bacteria	Pseudomonadota	Gammaproteobacteria	Enterobacterales	Enterobacteriaceae	Escherichia	Escherichia coli K-12		U00096.3		AAC76042		Ton complex subunit ExbB	
+mota	mota	ExbB	AAG04082	Bacteria	Pseudomonadota	Gammaproteobacteria	Pseudomonadales	Pseudomonadaceae	Pseudomonas	Pseudomonas aeruginosa		AE004091.2		AAG04082		transport protein ExbB2	
+mota	mota	Unknown 1	ABF90492	Bacteria	Pseudomonadota	Deltaproteobacteria	Myxococcales	Myxococcaceae	Myxococcus	Myxococcus xanthus		CP000113.1		ABF90492		MotA/TolQ/ExbB proton channel family protein	
+mota	mota	Unknown 2	ABF91581	Bacteria	Pseudomonadota	Deltaproteobacteria	Myxococcales	Myxococcaceae	Myxococcus	Myxococcus xanthus		CP000113.1		ABF91581		transporter MotA/TolQ/ExbB proton channel family	
+mota	mota	Unknown 3	ABF92363	Bacteria	Pseudomonadota	Deltaproteobacteria	Myxococcales	Myxococcaceae	Myxococcus	Myxococcus xanthus		CP000113.1		ABF92363		transporter MotA/TolQ/ExbB proton channel family	
+mota	mota	motA	ABF92421	Bacteria	Pseudomonadota	Deltaproteobacteria	Myxococcales	Myxococcaceae	Myxococcus	Myxococcus xanthus		CP000113.1		ABF92421		tonB system transport protein ExbB/TolQ	
+mota	mota	Unknown	ACX73657	Bacteria	Fibrobacteres	Fibrobacteria	Fibrobacterales	Fibrobacteraceae	Fibrobacter	Fibrobacter succinogenes		CP001792.1		ACX73657		MotA/TolQ/ExbB proton channel	
+mota	mota	Unknown	ADD68377	Bacteria	Deferribacteres	Deferribacteres	Deferribacterales	Geovibrionaceae	Denitrovibrio	Denitrovibrio acetiphilus		CP001968.1		ADD68377		MotA/TolQ/ExbB proton channel	
+mota	mota	motA	AHZ83417	Bacteria	Pseudomonadota	Oligoflexia	Bdellovibrionales	Pseudobdellovibrionaceae	Bdellovibrio	Bdellovibrio bacteriovorus		CP007656.1		AHZ83417		motility protein A	
+mota	mota	tolQ	AHZ86092	Bacteria	Pseudomonadota	Oligoflexia	Bdellovibrionales	Pseudobdellovibrionaceae	Bdellovibrio	Bdellovibrio bacteriovorus		CP007656.1		AHZ86092		tolQ protein	
+mota	mota	ExbB	AJJ31614	Bacteria	Pseudomonadota	Gammaproteobacteria	Enterobacterales	Yersiniaceae	Yersinia	Yersinia pestis		CP009844.1		AJJ31614		tonB-system energizer ExbB	
+mota	mota	TolQ	AJJ31712	Bacteria	Pseudomonadota	Gammaproteobacteria	Enterobacterales	Yersiniaceae	Yersinia	Yersinia pestis		CP009844.1		AJJ31712		protein TolQ	
+mota	mota	PomA	APC07901	Bacteria	Bacillota	Clostridia	Thermoanaerobacterales	Thermoanaerobacteraceae	Moorella	Moorella thermoacetica		CP017237.1		APC07901		chemotaxis protein PomA	
+mota	mota	motA	AQU99646	Bacteria	Pseudomonadota	Deltaproteobacteria	Desulfobacterales	Desulfobacteraceae	Desulfococcus	Desulfococcus multivorans		CP019913.2		AQU99646		MotA	
+mota	mota	Unknown	QAR33783	Bacteria	Deferribacteres	Deferribacteres	Deferribacterales	Geovibrionaceae	Geovibrio	Geovibrio thiophilus		CP035108.1		QAR33783		MotA/TolQ/ExbB proton channel family protein	
+mota	mota	TolQ	QEO41016	Bacteria	Pseudomonadota	Gammaproteobacteria	Vibrionales	Vibrionaceae	Vibrio	Vibrio cholerae		CP043554.1		QEO41016		protein TolQ	
+mota	mota	Unknown	QEO41299	Bacteria	Pseudomonadota	Gammaproteobacteria	Vibrionales	Vibrionaceae	Vibrio	Vibrio cholerae		CP043554.1		QEO41299		MotA/TolQ/ExbB proton channel family protein	
+mota	mota	ExdB	6tyi	Bacteria	Pseudomonadota	Gammaproteobacteria	Enterobacterales	Enterobacteriaceae	Escherichia	Escherichia coli K-12	6tyi					ExbB-ExbD complex in MSP1E3D1 nanodisc	
+mota	mota	MotAB	6ysl	Bacteria	Bacillota	Bacilli	Bacillales	Bacillaceae	Bacillus	Bacillus subtilis	6ysl					Structure of the flagellar MotAB stator complex from Bacillus subtilis	
+motb	motb	ExbD	2pfu	Bacteria	Pseudomonadota	Gammaproteobacteria	Enterobacterales	Enterobacteriaceae	Escherichia	Escherichia coli K-12	2pfu					NMR structure determination of the periplasmic domain of ExbD from E.coli	
+motb	motb	Tol-Pal	AAC73832.1	Bacteria	Pseudomonadota	Gammaproteobacteria	Enterobacterales	Enterobacteriaceae	Escherichia	Escherichia coli				AAC73832.1			
+motb	motb	ExbD	AAG04083.1	Bacteria	Pseudomonadota	Gammaproteobacteria	Pseudomonadales	Pseudomonadaceae	Pseudomonas	Pseudomonas aeruginosa				AAG04083.1			
+motb	motb	ExbD	ABF89902.1	Bacteria	Pseudomonadota	Gammaproteobacteria	Pseudomonadales	Pseudomonadaceae	Pseudomonas	Pseudomonas aeruginosa				ABF89902.1			
+motb	motb	ExbD	ABF91400.1	Bacteria	Pseudomonadota	Deltaproteobacteria	Myxococcales	Myxococcaceae	Myxococcus	Myxococcus xanthus				ABF91400.1			
+motb	motb	TonB	ABF91848.1	Bacteria	Pseudomonadota	Deltaproteobacteria	Myxococcales	Myxococcaceae	Myxococcus	Myxococcus xanthus				ABF91848.1			
+motb	motb	ExbD	ABF92022.1	Bacteria	Pseudomonadota	Deltaproteobacteria	Myxococcales	Myxococcaceae	Myxococcus	Myxococcus xanthus				ABF92022.1			
+motb	motb	ExbD	ADD68375.1	Bacteria	Deferribacteres	Deferribacteres	Deferribacterales	Geovibrionaceae	Denitrovibrio	Denitrovibrio acetiphilus				ADD68375.1			
+motb	motb	ExbD	QAR33782.1	Bacteria	Deferribacteres	Deferribacteres	Deferribacterales	Geovibrionaceae	Geovibrio	Geovibrio thiophilus				QAR33782.1			

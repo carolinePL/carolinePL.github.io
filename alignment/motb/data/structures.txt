@@ -1,0 +1,9 @@
+structures/2pfu.pdb
+structures/AAC73832.1.pdb
+structures/AAG04083.1.pdb
+structures/ABF89902.1.pdb
+structures/ABF91400.1.pdb
+structures/ABF91848.1.pdb
+structures/ABF92022.1.pdb
+structures/ADD68375.1.pdb
+structures/QAR33782.1.pdb
