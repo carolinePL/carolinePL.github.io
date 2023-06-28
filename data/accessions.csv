@@ -28,4 +28,5 @@ motb	motb	TonB	ABF91848.1	Bacteria	Pseudomonadota	Deltaproteobacteria	Myxococcal
 motb	motb	ExbD	ABF92022.1	Bacteria	Pseudomonadota	Deltaproteobacteria	Myxococcales	Myxococcaceae	Myxococcus	Myxococcus xanthus				ABF92022.1											
 motb	motb	ExbD	ADD68375.1	Bacteria	Deferribacteres	Deferribacteres	Deferribacterales	Geovibrionaceae	Denitrovibrio	Denitrovibrio acetiphilus				ADD68375.1											
 motb	motb	ExbD	QAR33782.1	Bacteria	Deferribacteres	Deferribacteres	Deferribacterales	Geovibrionaceae	Geovibrio	Geovibrio thiophilus				QAR33782.1											
-motb	motb	MotB	AAC74959.1	Bacteria	Pseudomonadota	Gammaproteobacteria	Enterobacterales	Enterobacteriaceae	Escherichia	Escherichia coli K-12				AAC74959.1		motility protein B									
+motb	motb	MotB-Chunky	AAC74959.1	Bacteria	Pseudomonadota	Gammaproteobacteria	Enterobacterales	Enterobacteriaceae	Escherichia	Escherichia coli K-12				AAC74959.1		motility protein B									
+motb	motb	MotB	AAC65689.1	Bacteria	Spirochaetota	Spirochaetia	Spirochaetales	Treponemataceae	Treponema	Treponema pallidum				AAC65689.1		flagellar motor rotation protein									

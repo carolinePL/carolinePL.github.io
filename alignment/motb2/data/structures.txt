@@ -1,0 +1,2 @@
+structures/AAC65689.1.pdb
+structures/AAC74959.1.pdb

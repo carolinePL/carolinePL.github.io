@@ -27,6 +27,75 @@ cd ../
 ~/DeepAlign/3DCOMB -i structures.txt -o align
 
 
+# Hinge alignment
+rm -rf hinges
+mkdir hinges
+cd hinges
+Rscript ../../../../scripts/prepareHinges.R ../../info.json 1
+
+
+# Pairwise alignment each structure with the ref hinge to get the hinge position in every sequence
+if [ -d "region1" ] 
+then
+
+	for r in region*;
+	do
+		echo $r
+		cd $r
+		touch structuresAll.txt
+		for f in ../../dssp/*.pdb;
+		do
+			#echo $f
+			~/DeepAlign/DeepAlign hinge_str.pdb $f -o $f &> out.err
+
+			mv $f.pdb .
+			mv $f.local .
+			mv $f.fasta .
+			mv $f.score .
+			
+			# Extract start position
+			#line=$(sed '5!d' alignment.local)
+			#startPos=${line:13:5}
+			echo "$f" >> structuresAll.txt
+			
+			#rm alignment*
+			#rm out.err
+			
+		done
+		cd ../
+
+	done
+
+
+
+	#exit
+
+
+	# Truncate all pdb files to fit in the hinges
+	Rscript ../../../../scripts/prepareHinges.R ../../info.json 2
+
+
+	# Multiple alignment
+	for r in region*;
+	do
+		echo $r
+		cd $r
+		~/DeepAlign/3DCOMB -i structures.txt -o align
+		
+		cd ../
+	done
+
+
+	# Glue the alignments back together
+	Rscript ../../../../scripts/prepareHinges.R ../../info.json 3
+
+fi
+
+
+
+cd ../
+rm -rf hinges
+
 
 # DSSP
 Rscript ../../../scripts/dssp2pdbMulti.R
