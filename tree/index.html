@@ -1,0 +1,78 @@
+﻿
+
+
+<html>
+<head>
+<title>Tree</title>
+
+<link rel="icon" href="fig/icon_white.png">
+<meta name="viewport" content="width=device-width, initial-scale=0.41, maximum-scale=1" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="/css/styles.css">
+<script language='JavaScript' type='text/JavaScript' src="/js/aaRS.js"></script>
+<script language='JavaScript' type='text/JavaScript' src="/js/util.js"></script>
+<script language='JavaScript' type='text/JavaScript' src="drawTree.js"></script>
+<script language='JavaScript' type='text/JavaScript' src="icytree/tree.js"></script>
+<script language='JavaScript' type='text/JavaScript' src="icytree/treeparsing.js"></script>
+
+
+
+
+        
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+
+
+
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+
+
+
+<script language='JavaScript' type='text/JavaScript'>
+
+
+function init(){
+
+
+	
+
+
+	let begin = function(text){
+	
+		text = text.replaceAll("\n", "").replaceAll("\r", "");
+		let json = JSON.parse(text);
+
+		let treeDiv = $(`<div id="treeDiv"></div>`);
+		$("#tree").append(treeDiv);
+		drawTree(treeDiv, "mota.nexus", "motA", "motb.nexus", "motB", json);
+	
+	}
+	
+	fetch("metadata.tsv.json").then(response => response.text()).then(text => begin(text));
+	
+}
+
+
+
+</script>
+
+</head>
+<body onload="init()">
+
+
+
+	<div id="tree">
+
+
+	</div>
+</body>
+</html>

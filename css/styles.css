@@ -12,7 +12,7 @@ body {
 }
 
 
-svg {
+#secondary {
 	user-select: none;
 }
 
@@ -81,11 +81,7 @@ svg{
 }
 
 
-svg text{
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
-}
+
 
 
 #secondary text.selected{
