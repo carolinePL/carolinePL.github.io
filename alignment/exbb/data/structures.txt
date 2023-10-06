@@ -1,0 +1,12 @@
+structures/AAC76042.1.pdb
+structures/ABA03969.1.pdb
+structures/ABA05559.1.pdb
+structures/ABQ60495.1.pdb
+structures/ADE86105.1.pdb
+structures/ADL00174.1.pdb
+structures/AJJ31614.1.pdb
+structures/AJJ56099.1.pdb
+structures/CDK97637.1.pdb
+structures/QKY94846.1.pdb
+structures/QNQ08778.1.pdb
+structures/QXB09426.1.pdb

@@ -6,7 +6,7 @@ IS_MOBILE = (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|com
 DATA = {};
 FADE_TIME = 50;
 
-
+HIDE_PROTOZYME = true;
 
 PV_VIEWERS = {};
 PV_PDBS = {};
@@ -14,6 +14,24 @@ PV_GEOMS = {};
 
 SELECTED_SITES = {lower: -1, upper: -1};
 SELECTED_ACCESSION = null;
+
+
+
+// Colour gradient
+// https://colorbrewer2.org/#type=diverging&scheme=RdYlBu&n=10
+ALPHAFOLD_CONFIDENCE_COLS = [
+	{min:  0, max: 50, r: 165, g: 0, b: 38},
+	{min: 50, max: 55, r: 215, g: 48, b: 39},
+	{min: 55, max: 60, r: 244, g: 109, b: 67},
+	{min: 60, max: 65, r: 253, g: 174, b: 97},
+	{min: 65, max: 70, r: 254, g: 224, b: 144},
+	{min: 70, max: 75, r: 224, g: 243, b: 248},
+	{min: 75, max: 80, r: 171, g: 217, b: 233},
+	{min: 80, max: 85, r: 116, g: 173, b: 209},
+	{min: 85, max: 90, r: 69, g: 117, b: 180},
+	{min: 90, max: 100, r: 49, g: 54, b: 149}
+];
+
 
 AA_COLS = {A: "#80a0f0", I: "#80a0f0", L: "#80a0f0", M: "#80a0f0", F: "#80a0f0", W: "#80a0f0", V: "#80a0f0",
           K: "#f01505", R: "#f01505",
@@ -26,10 +44,21 @@ AA_COLS = {A: "#80a0f0", I: "#80a0f0", L: "#80a0f0", M: "#80a0f0", F: "#80a0f0",
           X: "#ffffff"};
 
 
+AA_FONT_COLS = {A: "#ffffff", I: "#ffffff", L: "#ffffff", M: "#ffffff", F: "#ffffff", W: "#ffffff", V: "#ffffff",
+          K: "#ffffff", R: "#ffffff",
+          D: "#ffffff", E: "#ffffff",
+          N: "#ffffff", S: "#ffffff", Q: "#ffffff", T: "#ffffff",
+          C: "#ffffff",
+          G: "#ffffff",
+          P: "#ffffff",
+          H: "#ffffff", Y: "#ffffff",
+          X: "#ffffff"};
+
+
 
 // http://bioinformatica.isa.cnr.it/SUSAN/NAR2/dsspweb.html#:~:text=DSSP%20assigns%20seven%20different%20secondary,no%20secondary%20structure%20is%20recognized
-AA_COLS_2 = {E: "#FFC20A", H: "#0C7BDC", G: "#0C7BDC", I: "#0C7BDC", T:"#d3d3d3", S: "#d3d3d3",  B: "#d3d3d3",  N: "#ffffff"};
-AA_FONT_COLS_2 = {E: "#222222", H: "#222222", G: "#222222", I: "#222222", T:"#222222", S: "#222222",  B: "#222222",  N: "#111111",};
+AA_COLS_2 = {E: "#FFC20A", H: "#0C7BDC", G: "#08569a", I: "#043158", T:"#333333", S: "#696969",  B: "#d3d3d3",  N: "#ffffff"};
+AA_FONT_COLS_2 = {E: "#222222", H: "#ffffff", G: "#ffffff", I: "#ffffff", T:"#ffffff", S: "#ffffff",  B: "#222222",  N: "#111111",};
 
 
 IS_SUPERFAMILY = false;
@@ -117,14 +146,199 @@ LEVEL_4_COL = "transparent";
 function renderaaRS(isPairwise = false, isSuperfamily = false){
 
 
+
+
   PAIRWISE = isPairwise;
   IS_SUPERFAMILY = isSuperfamily
   
 
+
+  // Initialise HTML
+	$(".indexMetadata").remove();
+$("#main").append(`
+		<ul class="flexContainer">
+				
+
+				<li class="notes">
+					
+					
+					<div id="introduction">
+
+
+					</div>
+					
+				</li>
+				
+				<li class="summary">
+					
+				</li>
+				
+			</ul>
+			
+
+			<div class="svgDiv">
+				<svg id="secondary" height=0 width=0 overflow="auto"></svg>
+			</div>
+			
+			<div id="secondaryHelper" class="helperNote">
+				
+			</div>
+
+			
+			
+			<div id="alignment" class="svgDiv">
+
+			</div>
+
+
+			<div id="alignment2" class="svgDiv">
+
+			</div>
+
+
+			<div id="tertiaryTable">
+				
+				<table>
+
+				
+
+
+					<tr id="superpositionRow">
+
+
+						<td id="alphaFoldConfidenceCell">
+							
+						</td>
+
+						<td class="structureCell">
+							<div  id="superposition"> </div>
+						</td>
+					</tr>
+
+				
+				</table>
+				
+				
+			
+			</div>
+			
+			
+		<ul class="flexContainer">
+
+				
+
+				<li class="tRNA">
+					
+					<div id="tRNA_notes">
+
+
+					</div>
+
+					<div id="tRNA_select_div">
+
+
+					</div>
+					
+				</li>
+
+
+					<li class="tRNA" >
+
+				<div id="tRNA_div">
+				 <svg id="tRNA_svg" height=0 width=0 overflow='auto'></svg>
+			
+				</div>
+					
+				</li>
+
+				
+				
+				
+			</ul>
+
+			
+			
+			<ul class="flexContainer">
+				<li id="references">
+					<h2>References</h2>
+				</li>
+			</ul>
+
+
+
+	`);
+
+
+  
+  if (IS_MOBILE){
+	  let row = $(`<tr><td class="structureCell"><div id="tertiary"> </div></td></tr>`)
+	  $("#superpositionRow").after(row);
+  }else{
+	   let cell = $(`<td class="structureCell"><div id="tertiary"> </div></td>`)
+	   $("#superpositionRow").append(cell)
+  }
+
    
 
 	// Add loading wheel
-	$("#alignment").before(`<div id="mainloader" class='loader'><img src='/fig/icon_white.png'></img></div>`);
+	$("body").append(`<div id="mainloader" class='loader'><img src='/fig/loader.png'></img></div>`);
+	$("#main").css("opacity", "50%");
+	
+
+
+	// Render the introduction
+	fetch("README.md")      // The path to the raw Markdown file
+  .then(response => response.blob())  // Unwrap to a blob...
+  .then(blob => blob.text())          // ...then to raw text...
+  .then(markdown => {                 // ...then pass the raw text into marked.parse
+    document.getElementById("introduction").innerHTML = marked.parse(markdown);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+	$("#introduction").prepend("<h1 id='fullName'>Introduction</h1>");
+  });
+
+
+
+
+	// Render the references
+	fetch("REF.md")      // The path to the raw Markdown file
+  .then(response => response.blob())  // Unwrap to a blob...
+  .then(blob => blob.text())          // ...then to raw text...
+  .then(markdown => {                 // ...then pass the raw text into marked.parse
+
+
+
+  	
+  
+
+    document.getElementById("references").innerHTML = marked.parse(markdown);
+	
+	
+	// Sort references alphabetically
+	let refs = $("#references").find("p");
+	
+	
+	let getSorted = function(elements) {
+		console.log($(elements).toArray());
+		return $($(elements).toArray().sort(function(a, b){
+			let aVal = $(a).html();
+			let bVal = $(b).html();
+			return aVal.localeCompare(bVal);
+		}));
+	}
+	
+
+
+	// Footer information
+	let loc = window.location.pathname;
+	let wd = loc.substring(0, loc.lastIndexOf('/'));
+	$("#GitHubLink").attr("href", "https://github.com/aarsonline/aarsonline.github.io/tree/main" + wd);
+
+	
+	refs = getSorted(refs);
+	$("#references").html("");
+	$("#references").append(refs);
+	$("#references").prepend("<h2>References</h2>");
+  });
   
   
   renderHeader();
@@ -151,13 +365,14 @@ function renderaaRS(isPairwise = false, isSuperfamily = false){
 
   
 
-  // Section titles
-  $(".summary").prepend("<h2>Summary</h2>");
-  $("#flexContainer .notes").prepend("<h2>Introduction</h2>");
-  $("#references").prepend("<h2>References</h2>");
+
+  
+  
 
   loadAllFiles(function(){
 
+
+	$(".notes").show(100);
 
     //console.log(DATA);
     renderAlignment("alignment", true, "data/align.ali");
@@ -175,12 +390,17 @@ function renderaaRS(isPairwise = false, isSuperfamily = false){
   $("#secondary").before("<h2>Domain architecture</h2>");
   $("#secondary").before("<div class='helperNote'>Click on an accession or domain below, or drag a region, to select it. Right click on an accession for more information.</div>");
   let imgWidth = IS_MOBILE ? 30 : 15;
-  $("#secondary").after(`<div class='helperNote'>
+  $("#secondaryHelper").html(`
+							
 							<span><img src="/fig/Archaea.png"  height="` + imgWidth + `px"></img> - Archaea </span>
 							<span><img src="/fig/Bacteria.png"  height="` + imgWidth + `px"></img> - Bacteria </span>
+							<span><img src="/fig/Eukaryota.png"  height="` + imgWidth + `px"></img> - Eukaryota </span>
+							<span><img src="/fig/Mitochondrial.png"  height="` + imgWidth + `px"></img> - Mitochondrion/chloroplast </span>
+							<span><img src="/fig/Viruses.png"  height="` + imgWidth + `px"></img> - Virus </span>
 							<span><img src="/fig/xray.png" height="` + imgWidth + `px"></img> - Solved structure </span>
 							<span><img src="/fig/alphafold.png"  height="` + imgWidth + `px"></img> - Computational prediction </span>
-						</div>`);
+							<span id="secondarySelectedSites"> </span>
+							`);
   $("#tertiaryTable").prepend("<h2>Tertiary structure</h2>");
 
   
@@ -197,20 +417,23 @@ function renderaaRS(isPairwise = false, isSuperfamily = false){
 
 	// Tertiary dropdowns
 	$("#tertiaryTable").append("<span class='button' onClick='deselectSites(); deselectTaxa(true)'>Clear selection</span>");
+	$("#tertiaryTable").append("<span class='dropdownDiv'>Accession: <select id='accessionSelect'></select></span>");
 	$("#tertiaryTable").append("<span class='dropdownDiv domainSelect'>Domain: <select id='domainSelect'></select></span>");
-	$("#tertiaryTable").append("<span class='dropdownDiv colouring'>Alignment colour: <select id='tertiaryColouringAln'></select></span>");
-	$("#tertiaryTable").append("<span class='dropdownDiv colouring'>Reference colour: <select id='tertiaryColouringSingle'></select></span>");
+	
 	
 	
 	if (IS_MOBILE){
 		$("#tertiaryTable").find("span").after("<br>");
 		$("#tertiaryTable").find("span").css("display", "inline-block");
 	}
+
+
 	
 	// Domain selection
     let dropdown = $("#domainSelect");
     dropdown.append("<option value='_full'> Full protein </option>");
     for (let f in DATA.features){
+	  if (HIDE_PROTOZYME && f == "Protozyme") continue;
       if (DATA.features[f].level > 1){
         dropdown.append("<option value='" + f + "'>" + f + "</option>");
       }
@@ -218,29 +441,41 @@ function renderaaRS(isPairwise = false, isSuperfamily = false){
     }
     $(dropdown).on("change", function(){
       $("#tertiary").html("");
-      renderTertiary("data/align.pdb", "superposition");
+      deselectSites();
+      recolourTertiaries(true);
+      dropdown.focus(); // Refocus on dropdown for easy selection using arrow keys
     });
 	
 		
-	if (PAIRWISE) {
+	if (PAIRWISE || isSuperfamily) {
 		$("#tertiaryTable .domainSelect").hide();
 	}
 	
 	
 	
 	// Protein colouring
+	$("#superposition").after("<span class='dropdownDiv colouring'>Colour by: <select id='tertiaryColouringAln'></select></span>");
+	$("#tertiary").after("<span class='dropdownDiv colouring'>Colour by: <select id='tertiaryColouringSingle'></select></span>");
+
+
+	// Colour selection dropdown
 	let dropdowns = $("#tertiaryTable").find(".colouring");
 	for (let d = 0; d < dropdowns.length; d ++){
 		let dropdownCol = $(dropdowns[d]).find("select");
 		dropdownCol.append("<option value='byChain'>Chain</option>");
 		dropdownCol.append("<option value='rainbow'>Position</option>");
-		dropdownCol.append("<option value='bySS'>Secondary structure</option>");
-		dropdownCol.append("<option value='ssSuccession'>Secondary structure succession</option>");
+		dropdownCol.append("<option value='bySS'>SSE</option>");
+		dropdownCol.append("<option value='ssSuccession'>SSE succession</option>");
+		dropdownCol.append("<option value='confidence'>AlphaFold confidence</option>");
 		$(dropdownCol).val("bySS");
 		$(dropdownCol).on("change", function(){
 			 recolourTertiaries();
+			 
 		});
 	}
+
+	// Draw alphafold confidence legend
+	drawConfidenceLegend();
 
 
 	renderTertiary("data/align.pdb", "superposition");
@@ -258,18 +493,128 @@ function renderaaRS(isPairwise = false, isSuperfamily = false){
 
 
 
-	
+
+		// Accession select
+		let accessionSelect = $("#accessionSelect");
+    for (let f in DATA.accessions){
+    	let acc = getNameOfAccession(DATA.accessions[f]);
+    	accessionSelect.append("<option value='" + DATA.accessions[f] + "'>" + acc + "</option>");
+    }
+    $(accessionSelect).on("change", function(){
+      console.log("selected", $(accessionSelect).val());
+      deselectTaxa();
+      SELECTED_ACCESSION = $(accessionSelect).val();
+      let directory = getDirectoryOfAccession(SELECTED_ACCESSION);
+      renderTertiary(directory, "tertiary");
+      selectSites(true);
+      accessionSelect.focus(); // Refocus on dropdown for easy selection using arrow keys
+    });
+    renderTertiary(getDirectoryOfAccession($(accessionSelect).val()), "tertiary");
 
 
 
-  // Delete loader
-  $("#mainloader").remove();
+	  // Delete loader
+	  $("#mainloader").remove();
+	  $("#main").css("opacity", "100%");
 
+
+	  // Render the first tRNA structure
+	  console.log("trna", DATA.tRNA);
+	  if (DATA.tRNA != null){
+
+
+
+
+			// Render the tRNA section of it exists
+			fetch("tRNA.md")      // The path to the raw Markdown file
+		  .then(response => response.blob())  // Unwrap to a blob...
+		  .then(blob => blob.text())          // ...then to raw text...
+		  .then(markdown => {                 // ...then pass the raw text into marked.parse
+		    document.getElementById("tRNA_notes").innerHTML = marked.parse(markdown);
+		    MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+			$("#tRNA_notes").prepend("<h2>tRNA Structure</h2>");
+		  });
+
+
+	  	
+	   	// Dropdown
+	   	$("#tRNA_select_div").append("<span class='dropdownDiv'>Show tRNA: <select id='tRNASelect'></select></span>");
+	   	let tRNASelect = $("#tRNASelect");
+    	for (let f in DATA.tRNA){
+    		let acc = DATA.tRNA[f].seqname; 
+    		let name = getNameOfAccession(DATA.tRNA[f].acc) + ": " + DATA.tRNA[f].anticodon + "";
+    		tRNASelect.append("<option value='" + acc + "'>" + name + "</option>");
+    	}
+
+    	$(tRNASelect).on("change", function(){
+	      console.log("selected", $(tRNASelect).val());
+	      renderTRNA("trna/" + $(tRNASelect).val() + ".json", "tRNA_svg");
+	      tRNASelect.focus(); // Refocus on dropdown for easy selection using arrow keys
+	    });
+
+    	for (let f in DATA.tRNA){
+    		let acc = DATA.tRNA[f].seqname; 
+    		$(tRNASelect).val(acc);
+    		renderTRNA("trna/" + $(tRNASelect).val() + ".json", "tRNA_svg");
+    		break;
+    	}
+	    
+
+	  }
 	
 
   })
 
 	
+}
+
+
+
+// Draw the legend scale for alphafold confidence
+function drawConfidenceLegend(){
+
+
+	let ele = $("#alphaFoldConfidenceCell");
+	ele.hide();
+
+	// Draw a legend table
+	let table = $(`<table class='colourLegend'></table>`);
+
+	for (let step = ALPHAFOLD_CONFIDENCE_COLS.length-1; step >= 0 ; step --){
+
+		let range = ALPHAFOLD_CONFIDENCE_COLS[step];
+		let colour = "rgb(" + range.r + "," + range.g + "," + range.b + ")";
+		let height = (range.max - range.min) / 5;
+		let row = $(`<tr >
+									<td style="height:` + height + `em; background-color:` + colour + `">
+
+									</td>
+									<td style="height:` + height + `em" class="labelCell">
+										` + range.max + `%
+									</td>
+								</tr>`);
+		table.append(row);
+
+	}
+
+
+	ele.append(table);
+
+}
+
+
+
+// Get pdb directory of an accession
+function getDirectoryOfAccession(acc){
+
+      let directory = DATA.directories[acc];
+      directory = directory.replaceAll("structures/", "dssp/")
+      if (directory.substr(0, 4) == "dssp"){
+      	directory = "data/" + directory;
+      }
+
+      return directory;
+
 }
 
 
@@ -280,11 +625,26 @@ function getNameOfAccession(acc){
 	acc = acc.replace(".pdb", "");
 	let metadata = DATA.metadata[acc];
 	if (metadata == null){
-		console.log("cannot find", acc);
-		return "error";
+		
+		// Try to match by gene name
+		let geneName = acc.split("_");
+		geneName = geneName[geneName.length-1];
+		for (let d in DATA.metadata){
+			let dgeneName = d.split("_");
+			dgeneName = dgeneName[dgeneName.length-1];
+			if (dgeneName == geneName){
+				metadata = DATA.metadata[d];
+				break;
+			}
+		}
+		
+		if (metadata == null){
+			console.log("cannot find", acc);
+			return "error";
+		}
 	}
 	
-	let isPDB = metadata.pdb != "" && metadata.pdb != "NA";
+	let isPDB = false;// metadata.pdb != "" && metadata.pdb != "NA";
 	
 	if (isPDB){
 		//return metadata.name + "_" + metadata.species;
@@ -295,7 +655,16 @@ function getNameOfAccession(acc){
 	let species = metadata.species.split("_");
 	if (species.length > 1){
 		species = species[0] + " " + species[1];
+	}else{
+		species = metadata.species;
 	}
+	
+	// Capitalise first letter
+	if (species == null || species.length < 2){
+		species = "Undefined species";
+	}
+	species = species[0].toUpperCase() + species.substr(1);
+	
 	let str = species + " (" + metadata.name + ")";
 	return str;
 	
@@ -309,7 +678,21 @@ function getLifeDomainOfAccession(acc){
 	acc = acc.replace(".pdb", "");
 	let metadata = DATA.metadata[acc];
 	if (metadata == null){
-		console.log("cannot find", acc);
+		
+		// Try to match by gene name
+		let geneName = acc.split("_");
+		geneName = geneName[geneName.length-1];
+		for (let d in DATA.metadata){
+			let dgeneName = d.split("_");
+			dgeneName = dgeneName[dgeneName.length-1];
+			if (dgeneName == geneName){
+				metadata = DATA.metadata[d];
+				return metadata.domain;
+			}
+		}
+		
+		
+		console.log("cannot find", acc, geneName);
 		return null;
 	}
 
@@ -322,6 +705,8 @@ function getLifeDomainOfAccession(acc){
 
 // Is the structure wet-lab experimental (ie. on rcsb) or is it alphafold
 function accessionIsExperimental(acc){
+
+	return false;
 	
 	acc = acc.replace(".pdb", "");
 	let metadata = DATA.metadata[acc];
@@ -329,6 +714,8 @@ function accessionIsExperimental(acc){
 		console.log("cannot find", acc);
 		return null;
 	}
+
+
 
 	let isPDB = metadata.pdb != "" && metadata.pdb != "NA";
 	return isPDB;
@@ -353,41 +740,210 @@ function renderInfo(text, resolve=function() { }){
 	$("link[rel='icon']").attr("href", json.icon);
 	
 	// Page main header
-	 $("#main").prepend("<h1>" + json.fullName + "</h1>");
+	 $("#fullName").html(json.fullName);
 	 
 	 
+	 if (json.hide != null && json.hide == true){
+		$(".summary").hide(0);
+	 }
 
 	$(".summary").append("<table></table>");
 
+
+
+	// Draw a tree?
+	if (json.tree != null){
+		
+		let scriptEle = document.createElement("script");
+		scriptEle.setAttribute("src", "/js/drawTree.js");
+		document.body.appendChild(scriptEle);
+		scriptEle.addEventListener("load", () => {
+			console.log("File loaded");
+			let treeDiv = $(`<div id="treeDiv"><h2>Phylogeny</h2></div>`);
+			$("#tertiaryTable").after(treeDiv);
+
+			drawTree(json.leafFamily == null ? json.name : json.leafFamily, treeDiv, json.tree, DATA.metadata, json.treeDescription, json.fullTree, json.addToClade);
+		});
+	}
+
+
+
+
+	// GitHub issue link
+	let issueLabel = json.issuePage == null ? json.id : json.issuePage;
+	if (issueLabel == null) {
+		$("#IssuesLink").attr("href", "https://github.com/aarsonline/aarsonline.github.io/issues/");
+	}else{
+		$("#IssuesLink").attr("href", "https://github.com/aarsonline/aarsonline.github.io/labels/" + issueLabel);
+	}
+	
+
+
+	// Summary table for superfamily alignments
+	if (IS_SUPERFAMILY){
+
+
+
+        $(".summary table").append(`<tr>
+                  <th>Class</th>
+                  <td>` + json.class + `</td>
+                </tr>`);
+        $(".summary table").append(`<tr title="Amino acids attached to tRNA">
+  								<th>Activated substrates</th>
+  								<td>` + json.substrate + `</td>
+  							</tr>`);
+      $(".summary table").append(`<tr title="Amino acids incorporated onto protein">
+                  <th>Incorporates</th>
+                  <td>` + json.incorporates + `</td>
+                </tr>`);
+      	$(".summary table").append(`<tr>
+  								<th>Oligomerization</th>
+  								<td>` + json.oligo + `</td>
+  							</tr>`);
+
+
+	}
+
+
+  // Summary table for pairwise alignments
+  else if (PAIRWISE) {
+
+        $(".summary table").append(`<tr>
+                  <th>Class</th>
+                  <td>` + json.class + `</td>
+                </tr>`);
+        $(".summary table").append(`<tr>
+                <th>Family 1</th>
+                  <td>` + json.family1 + `</td>
+                </tr>`);
+        $(".summary table").append(`<tr>
+                <th>Family 2</th>
+                  <td>` + json.family2 + `</td>
+                </tr>`);
+         $(".summary table").append(`<tr>
+                  <th>Family 1 RMSD</th>
+                  <td>` + json.rmsd1 + ` &#8491;</td>
+                </tr>`);
+          $(".summary table").append(`<tr>
+                  <th>Family 2 RMSD</th>
+                  <td>` + json.rmsd2 + ` &#8491;</td>
+                </tr>`);
+           $(".summary table").append(`<tr>
+                  <th>Cross-family RMSD</th>
+                  <td>` + json.crossFamilyRmsd + ` &#8491;</td>
+                </tr>`);
+        $(".summary table").append(`<tr>
+                  <th>Total RMSD</th>
+                  <td>` + json.rmsdTotal + ` &#8491;</td>
+                </tr>`);
+        $(".summary table").append(`<tr>
+                  <th>TM score</th>
+                  <td>` + json.tm + `</td>
+                </tr>`);
+
+
+
+  }
+
+
   // Summary table for families
-  
+  else {
   	$(".summary table").append(`<tr>
   								<th>Family</th>
   								<td>` + json.name + `</td>
   							</tr>`);
+  	$(".summary table").append(`<tr>
+  								<th>Class</th>
+  								<td>` + json.class + `</td>
+  							</tr>`);
+    $(".summary table").append(`<tr>
+                  <th>Subclass</th>
+                  <td>` + json.subclass + `</td>
+                </tr>`);
+  	$(".summary table").append(`<tr title="Amino acid attached to tRNA">
+  								<th>Activated substrate</th>
+  								<td>` + json.substrate + `</td>
+  							</tr>`);
+      $(".summary table").append(`<tr title="Amino acid incorporated onto protein">
+                  <th>Incorporates</th>
+                  <td>` + json.incorporates + `</td>
+                </tr>`);
+  	$(".summary table").append(`<tr>
+  								<th>Oligomerization</th>
+  								<td>` + json.oligo + `</td>
+  							</tr>`);
 
+  	$(".summary table").append(`<tr title="Codons in the standard genetic code">
+  								<th>Codons</th>
+  								<td>` + json.codons + `</td>
+  							</tr>`);	
+  	$(".summary table").append(`<tr title="Editing is a translational-error prevention mechanism which removes misactivated or mischarged amino acids. It can occur at the pre-transfer level (by removing misactivated resiudes from the active site) or at the post-transfer level (by removing mischarged residues from the tRNA).">
+  								<th>Editing</th>
+  								<td>` + json.editing + `</td>
+  							</tr>`);
+  	if (json.PAD != null){
+  		let linktext = json.PAD.split("/");
+  		linktext = linktext[linktext.length-1];
+  		$(".summary table").append(`<tr title="A database of AARS HMM motifs.">
+  								<th>Prokaryotic AARS Database</th>
+  								<td><a target="_blank" href="` + json.PAD + `">` + linktext + `</a></td>
+  							</tr>`);
+  	}
+
+  	if (json.misynpat != null){
+  		let linktext = json.misynpat.split("=");
+  		linktext = linktext[linktext.length-1];
+  		$(".summary table").append(`<tr title="Mitochondrial Aminoacyl-tRNA Synthetases & Pathologies.">
+  								<th>MiSynPat</th>
+  								<td><a target="_blank" href="` + json.misynpat + `">` + linktext + `</a></td>
+  							</tr>`);
+  	}
+  	
+
+  }
   
+  
+  if (json.fig != null && json.fig != ""){
+	  $(".summary table").after(`<div title="` + json.substrate + `" class="aafig"><img src="` + json.fig + `"/></div>`);
+	  
+  }
 
 
 
   DATA.features = json.features;
+  DATA.tRNA = json.tRNA;
 
 
-  let resolve2 = function(){
-
-	  resolve();
-
-  }
   
-  // Load accessions
-  fetch("/data/accessions.json").then(response => response.text()).then(text => loadAcccessionMetadata(text, resolve2));
+  //// Load accessions
+  //fetch("/data/accessions.json").then(response => response.text()).then(text => loadAcccessionMetadata(text, resolve));
+  
+	// Load alignment
+	fetch("data/align.ali").then(response => response.text()).then(text => loadAlignment(text, resolve));
 
 
 
 }
 
+
+
+function isElementInViewport (ele) {
+
+
+		ele = ele[0];
+    let rect = ele.getBoundingClientRect();
+
+    return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /* or $(window).height() */
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */
+    );
+}
+
 function renderTertiary(pdb = null, id = "tertiary") {
-	
+
+
 	
 	var options = {
 	  width: IS_MOBILE ? 700 : 450,
@@ -397,12 +953,12 @@ function renderTertiary(pdb = null, id = "tertiary") {
 	};
 	
 	// Hide and show again to prevent the annoying scrolling activity, unless already in viewport
-	let hideAndShow = true;// $('#' + id).isInViewport();
+	let hideAndShow = !isElementInViewport($("#" + id)); //true;// $('#' + id).isInViewport();
 
 	if (hideAndShow){
-		$("#" + id).hide(0);
+		$("#" + id).parent().hide(0);
 	}else{
-		$("#" + id).show(0);
+		$("#" + id).parent().show(0);
 	}
   
 
@@ -443,7 +999,7 @@ function renderTertiary(pdb = null, id = "tertiary") {
   
   if (hideAndShow){
 	  setTimeout(function(){
-		$("#" + id).show(0);
+		$("#" + id).parent().show(0);
 	  }, 1);
   }
 	
@@ -457,10 +1013,10 @@ function renderTertiary(pdb = null, id = "tertiary") {
     // Display the protein as cartoon
 	  if (id == "tertiary"){
 		var method = $("#tertiaryColouringSingle").length == 0 ? "color.ssSuccession" : "color." + $("#tertiaryColouringSingle").val();
-		  PV_GEOMS[id] = viewer.cartoon('protein', structure, { color : colourSelected(id, eval(method)) });
+		  PV_GEOMS[id] = viewer.cartoon('protein', structure, { color : colourSelected(id, method) });
 	  }else{
 		var method = $("#tertiaryColouringAln").length == 0 ? "color.bySS" : "color." + $("#tertiaryColouringAln").val();
-		 PV_GEOMS[id] = viewer.cartoon('protein', structure, { color : colourSelected(id, eval(method)) });
+		 PV_GEOMS[id] = viewer.cartoon('protein', structure, { color : colourSelected(id, method) });
 	  }
 	 
     viewer.centerOn(structure);
@@ -469,6 +1025,11 @@ function renderTertiary(pdb = null, id = "tertiary") {
 
     let acc = pdb.split("/");
     acc = acc[acc.length-1];
+    if (id == "superposition"){
+    	acc = "Superposition";
+    }else{
+    	acc = getNameOfAccession(acc);
+    }
 	  $("#" + id).append("<div class='pdblabel'>" + acc + "</div>");
 
 
@@ -488,25 +1049,35 @@ function renderTertiary(pdb = null, id = "tertiary") {
 
 
  // Update tertiary colours
-function recolourTertiaries(){
+function recolourTertiaries(override = false){
+
+
+
+	// Show colour scale if one of the proteins are showing confidence
+	if ($("#tertiaryColouringSingle").val() == "confidence" || $("#tertiaryColouringAln").val() == "confidence"){
+		$("#alphaFoldConfidenceCell").show(100);
+	}else{
+		$("#alphaFoldConfidenceCell").hide(100);
+	}
 
 
   // Full only
   var redraw = false;
-  if ($("#domainSelect").val() != "_full"){
+  if ($("#domainSelect").val() != "_full" && SELECTED_SITES.lower != -1){
     redraw = true;
     $("#domainSelect").val("_full");
   }
 
     for (var id in PV_VIEWERS){
 
-      if (redraw){
-        var pdb = PV_PDBS[id].split("/");
+      if (redraw || (override)){
+        let pdb = PV_PDBS[id].split("/");
         pdb = pdb[pdb.length-1];
-        if (id == "tertiary"){
-          pdb = "data/dssp/" + pdb;
-        }else{
+        
+        if (id == "superposition"){
           pdb = "data/" + pdb;
+        }else{
+          pdb = getDirectoryOfAccession($("#accessionSelect").val());
         }
         
         renderTertiary(pdb, id);
@@ -516,10 +1087,10 @@ function recolourTertiaries(){
       else {
         if (id == "tertiary"){
 		  var method = "color." + $("#tertiaryColouringSingle").val();
-          PV_GEOMS[id].colorBy(colourSelected(id, eval(method)) );
+          PV_GEOMS[id].colorBy(colourSelected(id, method ));
         }else{
 		  var method = "color." + $("#tertiaryColouringAln").val();
-          PV_GEOMS[id].colorBy(colourSelected(id, eval(method) ));
+          PV_GEOMS[id].colorBy(colourSelected(id, method ));
         }
         PV_VIEWERS[id].requestRedraw();
       }
@@ -531,14 +1102,22 @@ function recolourTertiaries(){
 // Colour pdb structure by highlighting selected residues
 function colourSelected(id, defaultFn) {
 
+
+
+
+	console.log(defaultFn)
+
   // Default colouring
-  if (SELECTED_SITES.lower == -1) {
-    return defaultFn();
+  if (SELECTED_SITES.lower == -1 && defaultFn != "color.confidence") {
+  	let fn = eval(defaultFn);
+    return fn();
   }
 
 
   // Colour function
   var colorFunc = function(atom, out, index) {
+
+  	
 
     var chainName = atom.residue().chain().name();
     var chain1Name = atom.residue().chain().structure().chains()[0].name();
@@ -553,8 +1132,8 @@ function colourSelected(id, defaultFn) {
 
       // Main chain only
       if (chainName != chain1Name) {
-        out[index+0] = 0.6; out[index+1] = 0.6;
-        out[index+2] = 0.6; out[index+3] = 0.8;
+        out[index+0] = 0; out[index+1] = 0;
+        out[index+2] = 0; out[index+3] = 0;
         return;
       }
 
@@ -575,6 +1154,42 @@ function colourSelected(id, defaultFn) {
       }
 
     }
+
+
+    // Colour by confidence
+    if (defaultFn == "color.confidence" && SELECTED_SITES.lower == -1){
+
+
+    	// Hide PDB structures
+    	if (accessionIsExperimental(acc)){
+    		out[index+0] = 0; out[index+1] = 0;
+      	out[index+2] = 0; out[index+3] = 0;
+      	return;
+    	}
+
+    	//console.log(index, atom.tempFactor());
+    	let confidence = atom.tempFactor();
+    	let rgb = [1,1,1,1];
+    	for (let step = 0; step < ALPHAFOLD_CONFIDENCE_COLS.length; step++){
+    		let range = ALPHAFOLD_CONFIDENCE_COLS[step];
+    		if (confidence >= range.min && confidence < range.max){
+    			rgb = [range.r/255, range.g/255, range.b/255];
+    			break;
+    		}
+    	}
+
+    	
+  		out[index+0] = rgb[0]; out[index+1] = rgb[1];
+    	out[index+2] = rgb[2]; out[index+3] = 1;
+
+
+    	return;
+    	
+
+    }
+
+
+    // Colour by selected site
 
 
 
@@ -600,7 +1215,9 @@ function colourSelected(id, defaultFn) {
     }
 
 
-    
+
+ 
+
     // index + 0, index + 1 etc. are the positions in the output array
     // at which the red (+0), green (+1), blue (+2) and  alpha (+3)
     // components are to be written.
@@ -611,6 +1228,8 @@ function colourSelected(id, defaultFn) {
       out[index+0] = 0.6; out[index+1] = 0.6;
       out[index+2] = 0.6; out[index+3] = 0.7;
     }
+
+  	
 
 
   }
@@ -629,11 +1248,11 @@ function renderSecondary(svg){
 
 
     // Number of sequences
-    var alignment = DATA.secondary;
-    var accessions = DATA.accessions;
-    var nseq = accessions.length;
-    var nsites = alignment[accessions[0]].length;
-    var features = DATA.features;
+    let alignment = DATA.secondary;
+    let accessions = DATA.accessions;
+    let nseq = accessions.length;
+    let nsites = alignment[accessions[0]].length;
+    let features = DATA.features;
 
 
     console.log("rendering alignment with", nseq, nsites)
@@ -651,15 +1270,27 @@ function renderSecondary(svg){
     var svgContent = $(drawSVGobj(svg, "g", {class: "content"}));
 
 
+    // Colour gradients
+    let defs = $(drawSVGobj(svg, "defs", {} ));
+    let helixGradient = $(drawSVGobj(defs, "linearGradient", {id: "helixGradient"} ));
+    $(drawSVGobj(helixGradient, "stop", {offset: "0%", stop_color: AA_COLS_2["H"] + "aa"} ));
+    $(drawSVGobj(helixGradient, "stop", {offset: "100%", stop_color: AA_COLS_2["H"] + "ee"} ));
+    let strandGradient = $(drawSVGobj(defs, "linearGradient", {id: "strandGradient"} ));
+    $(drawSVGobj(strandGradient, "stop", {offset: "0%", stop_color: AA_COLS_2["E"] + "99"} ));
+    $(drawSVGobj(strandGradient, "stop", {offset: "100%", stop_color: AA_COLS_2["E"] + "ee"} ));
+    let helixBgCol  = "url(#helixGradient)";
+    let strandBgCol  = "url(#strandGradient)";
+
+
     // Residue selection dragger
     const eleSvg = $(svg).get(0); //document.getElementById(svg.attr("id"));
     eleSvg.addEventListener('mousedown', ({clientX, clientY}) => {
 
-			  
-			var x1 = clientX - svg.offset().left;
-			var y1 = clientY - svg.offset().top;
-			if (x1 <= ALN_LABEL_WIDTH) return;
-			if (y1 >= SEC_HEIGHT*(nseq+1)) return;
+		  
+		var x1 = clientX - svg.offset().left;
+		var y1 = clientY - svg.offset().top;
+		if (x1 < ALN_LABEL_WIDTH) return;
+		if (y1 >= SEC_HEIGHT*(nseq+1)) return;
 
 
 
@@ -674,35 +1305,37 @@ function renderSecondary(svg){
        deselectSites();
       
       
-      var res1 = Math.floor((x1 - ALN_LABEL_WIDTH) / SEC_WIDTH) + 1;
+      let res1 = Math.floor((x1 - ALN_LABEL_WIDTH) / SEC_WIDTH) + 1;
 
-      var rect = drawSVGobj(svgHighlight, "rect", {x: x1-SEC_WIDTH, y: 0, width: 0, height: SEC_HEIGHT*(nseq+1), class: "selectionRect", style: "stroke-width:1px; stroke:black; fill:#008cba55"} )
-      var text = drawSVGobj(svgHighlight, "text", {x: SEC_WIDTH*5, y: svg.height() - SEC_WIDTH*5, class: "selectionRect", style: "text-anchor:start; dominant-baseline:auto; font-size:12px"}, "" )
+      let rect = drawSVGobj(svgHighlight, "rect", {x: x1-SEC_WIDTH, y: 0, width: 0, height: SEC_HEIGHT*(nseq+1), class: "selectionRect", style: "stroke-width:1px; stroke:black; fill:#008cba55"} )
+      let text = $("#secondarySelectedSites"); //drawSVGobj(svgHighlight, "text", {x: SEC_WIDTH*5, y: svg.height() - SEC_WIDTH*5, class: "selectionRect", style: "text-anchor:start; dominant-baseline:auto; font-size:12px"}, "" )
 
 
 
-      var mouseMove = function({clientX, clientY}){
+      let mouseMove = function({clientX, clientY}){
 
         $(svgContent).find("text").attr("class", "");
 
-        var x1_ = x1;
-        var x2 = clientX - svg.offset().left;
+        let x1_ = x1;
+        let x2 = clientX - svg.offset().left;
 
 
         if (x1_ > x2){
-          var tmp = x1_;
+          let tmp = x1_;
           x1_ = x2;
           x2 = tmp;
         }
+		
+		let maxX = SEC_WIDTH*(nsites) + ALN_LABEL_WIDTH;
         if (x1_ <= ALN_LABEL_WIDTH+1) x1_ = ALN_LABEL_WIDTH+1;
         if (x2 <= ALN_LABEL_WIDTH+1) x2 = ALN_LABEL_WIDTH+1;
-        if (x1_ >= svg.width()-2) x1_ = svg.width()-2;
-        if (x2 >= svg.width()-2) x2 = svg.width()-2;
+        if (x1_ >= maxX) x1_ = maxX;
+        if (x2 >= maxX) x2 = maxX;
 
 
         // What are the residue numbers?
-        var res1_ = Math.floor((x1_ - ALN_LABEL_WIDTH) / SEC_WIDTH) + 1;
-        var res2 = Math.floor((x2 - ALN_LABEL_WIDTH) / SEC_WIDTH) + 1;
+        let res1_ = Math.floor((x1_ - ALN_LABEL_WIDTH) / SEC_WIDTH);
+        let res2 = Math.floor((x2 - ALN_LABEL_WIDTH) / SEC_WIDTH);
 
         x1_ = res1_ * SEC_WIDTH + ALN_LABEL_WIDTH;
         x2 = res2 * SEC_WIDTH + ALN_LABEL_WIDTH;
@@ -727,7 +1360,7 @@ function renderSecondary(svg){
 
         // Clear selection
         if (clearing && SELECTED_SITES.upper - SELECTED_SITES.lower < 3){
-			deselectTaxa();
+				deselectTaxa();
 		    deselectSites();
         }
 		if (coords.x1 == coords.x2){
@@ -762,9 +1395,18 @@ function renderSecondary(svg){
     for (var feature in features){
 
 
-      var range = features[feature].range;
-      var level = features[feature].level;
+	  if (HIDE_PROTOZYME && feature == "Protozyme") continue;
+
+      let range = features[feature].range;
+      let level = features[feature].level;
+      let textAlign = features[feature].align;
+      if (textAlign == "right"){
+      	textAlign = "end";
+      }else{
+      	textAlign = "start";
+      }
       let featureCount = features[feature].count; 
+      let featureDY = features[feature].dy; 
       if (range == "") continue;
       range = range.split("-")
       var y = SEC_HEIGHT*(nseq+1) + FEATURE_HEIGHT_SEC*(level-0.5);
@@ -788,6 +1430,7 @@ function renderSecondary(svg){
 	       lw = 0.7;
       }
 	  
+	  	let textX = textAlign == "left" ? x1 : x1;
 
 	  	let textFeature = null;
 	  	let featureBg = null;
@@ -801,12 +1444,18 @@ function renderSecondary(svg){
 		      let accSeq = accessions[seqNum];
 		      if (accSeq == features[feature].acc){
 		      	yAcc = (seqNum+1)*SEC_HEIGHT;
+		      	if (featureDY != null) {
+		      		yAcc= (seqNum+1+featureDY)*SEC_HEIGHT;
+		      	}
 		      	break;
 		      }
 
 		    }
 
+
+
 		    if (yAcc != -1){
+
 
 
       		drawSVGobj(svgAnnotation, "rect", {x: x1-SEC_WIDTH, y: yAcc, width: x2-x1, height:SEC_HEIGHT*featureCount, style:"stroke-width:" +  lw + "px; stroke:black; fill:" + "white"});
@@ -819,8 +1468,8 @@ function renderSecondary(svg){
 	  	  	drawSVGobj(svgContent, "polygon", {points: points, style: "stroke-width:0.7px; stroke:black; fill:" + col} ) // Triangle
 
 
-	  	  	// Test
-	  	  	textFeature = drawSVGobj(svgContent, "text", {lower: lower, upper:upper,  x: x1-NT_WIDTH/4, y: yBtm-SEC_HEIGHT/20, style: "cursor:pointer; text-anchor:start; dominant-baseline:hanging; font-size:" + FEATURE_FONT_SIZE*0.8 + "px; fill:" + textCol}, value=txt)
+	  	  	// Text
+	  	  	textFeature = drawSVGobj(svgContent, "text", {lower: lower, upper:upper,  x: textX, y: yBtm-SEC_HEIGHT/20, style: "cursor:pointer; text-anchor:" + textAlign + "; dominant-baseline:hanging; font-size:" + FEATURE_FONT_SIZE*0.8 + "px; fill:" + textCol}, value=txt)
 	  	  
 
 
@@ -838,12 +1487,9 @@ function renderSecondary(svg){
   	  	
 
 
-  	  	// Test
-	  	  if (feature == "Motif 3" || feature == "KMSKS"){
-	  		   textFeature = drawSVGobj(svgContent, "text", {lower: lower, upper:upper, x: x1+NT_WIDTH/4, y: y-SEC_HEIGHT/20, style: "cursor:pointer; text-anchor:end; dominant-baseline:hanging; font-size:" + FEATURE_FONT_SIZE + "px; fill:" + textCol}, value=txt)
-	  	  }else{
-	  		   textFeature = drawSVGobj(svgContent, "text", {lower: lower, upper:upper,  x: x1-NT_WIDTH/4, y: y-SEC_HEIGHT/20, style: "cursor:pointer; text-anchor:start; dominant-baseline:hanging; font-size:" + FEATURE_FONT_SIZE + "px; fill:" + textCol}, value=txt)
-	  	  }
+  	  	// Text
+		textFeature = drawSVGobj(svgContent, "text", {lower: lower, upper:upper,  x: textX, y: y-SEC_HEIGHT/20, style: "cursor:pointer; text-anchor:" + textAlign + "; dominant-baseline:hanging; font-size:" + FEATURE_FONT_SIZE + "px; fill:" + textCol}, value=txt)
+	  	  
 
 
 
@@ -924,7 +1570,7 @@ function renderSecondary(svg){
 	  // Domain image
 	  let domainOfLife = getLifeDomainOfAccession(acc);
 	  if (domainOfLife != null){
-		   let domainEle = drawSVGobj(svgContent, "image", {href:"/fig/" + domainOfLife + ".png", x: x+NT_FONT_SIZE, y: y-NT_FONT_SIZE/2, pdb: acc, height:SEC_HEIGHT*0.7})
+		   let domainEle = drawSVGobj(svgContent, "image", {href:"/fig/" + domainOfLife + ".png", x: x+NT_FONT_SIZE, y: y-NT_FONT_SIZE/2, pdb: acc, height:SEC_HEIGHT*0.9})
 		   drawSVGobj(domainEle, "title", {}, domainOfLife);
 		   
 		   
@@ -986,10 +1632,10 @@ function renderSecondary(svg){
 				
 				
 				let species = metadata.species.replaceAll("_", " ");
-				let domain = metadata.domain == "Mitochondrial" ? "Eukaryote organelle" : metadata.domain;
+				let domain = metadata.domain == "Mitochondrial" ? "Mitochondrion/chloroplast" : metadata.domain;
 				let domainImg =  "/fig/" + metadata.domain + ".png";
 				   
-				let isPDB = metadata.pdb != "" && metadata.pdb != "NA";
+				let isPDB = false; // metadata.pdb != "" && metadata.pdb != "NA";
 				let methodImg =  "/fig/" + (isPDB ? "xray" : "alphafold") + ".png";
 				let imgWidth = IS_MOBILE ? 28 : 14;
 				$("#metadataDlg table").append(`<tr>
@@ -1019,23 +1665,6 @@ function renderSecondary(svg){
 		  								<th>Phylum</th>
 		  								<td>` + metadata.phylum + `</td>
 		  							</tr>`);
-
-				$("#metadataDlg table").append(`<tr>
-							<th>Class</th>
-							<td>` + metadata.class + `</td>
-						</tr>`);
-
-
-				$("#metadataDlg table").append(`<tr>
-							<th>Order</th>
-							<td>` + metadata.order + `</td>
-						</tr>`);
-
-
-					$("#metadataDlg table").append(`<tr>
-							<th>Genus</th>
-							<td>` + metadata.genus + `</td>
-						</tr>`);
 									
 				$("#metadataDlg table").append(`<tr>
 		  								<th>Species</th>
@@ -1191,12 +1820,17 @@ function renderSecondary(svg){
           	startX = startX + HELIX_CORNER_RADIUS/2;
           	endX = endX - HELIX_CORNER_RADIUS/2;
 
+
+
           	// Right circle
-          	drawSVGobj(sseGroup, "ellipse", {cx: endX, cy: y, rx: HELIX_CORNER_RADIUS, ry: HELIX_WIDTH/2, style: "stroke-width:1px; stroke:black; fill:" + AA_COLS_2["H"] + colourModifier} );
+          	drawSVGobj(sseGroup, "ellipse", {cx: endX, cy: y, rx: HELIX_CORNER_RADIUS, ry: HELIX_WIDTH/2, style: "stroke-width:1px; stroke:black; fill:" + "white"} );
+          	drawSVGobj(sseGroup, "ellipse", {cx: endX, cy: y, rx: HELIX_CORNER_RADIUS, ry: HELIX_WIDTH/2, style: "stroke-width:1px; stroke:black; fill:" + AA_COLS_2["H"]} );
        
+
        			// Rect
-          	drawSVGobj(sseGroup, "rect", {x: startX, y: y-HELIX_WIDTH/2, width: endX-startX, height: HELIX_WIDTH, style: "stroke-width:0px; fill:" + AA_COLS_2["H"] + colourModifier} );
+       			drawSVGobj(sseGroup, "rect", {x: startX, y: y-HELIX_WIDTH/2, width: endX-startX, height: HELIX_WIDTH, style: "stroke-width:0px; fill:" + AA_COLS_2["H"]} );
          
+
          		// Border around rect
 	         	drawSVGobj(sseGroup, "line", {x1: startX, x2: endX, y1: y-HELIX_WIDTH/2, y2: y-HELIX_WIDTH/2, style: "stroke-width:1px; stroke: black"} );
 	         	drawSVGobj(sseGroup, "line", {x1: startX, x2: endX, y1: y+HELIX_WIDTH/2, y2: y+HELIX_WIDTH/2, style: "stroke-width:1px; stroke: black"} );
@@ -1204,10 +1838,11 @@ function renderSecondary(svg){
 
          		// Left circle
 	          drawSVGobj(sseGroup, "ellipse", {cx: startX, cy: y, rx: HELIX_CORNER_RADIUS, ry: HELIX_WIDTH/2, style: "stroke-width:0px; fill:white"} );
-          	drawSVGobj(sseGroup, "ellipse", {cx: startX, cy: y, rx: HELIX_CORNER_RADIUS, ry: HELIX_WIDTH/2, style: "stroke-width:1px; stroke:black; fill:" + AA_COLS_2["H"] + "aa"} );
+
+          	drawSVGobj(sseGroup, "ellipse", {cx: startX, cy: y, rx: HELIX_CORNER_RADIUS, ry: HELIX_WIDTH/2, style: "stroke-width:1px; stroke:black; fill:" + helixBgCol} );
          
           }else{
-          	 drawSVGobj(sseGroup, "rect", {rx: HELIX_CORNER_RADIUS, x: startX, y: y-HELIX_WIDTH/2, width: endX-startX, height: HELIX_WIDTH, style: "stroke-width:1px; stroke:black; fill:" + AA_COLS_2["H"] + colourModifier} );
+          	 drawSVGobj(sseGroup, "rect", {rx: HELIX_CORNER_RADIUS, x: startX, y: y-HELIX_WIDTH/2, width: endX-startX, height: HELIX_WIDTH, style: "stroke-width:1px; stroke:black; fill:" + helixBgCol} );
          
           }
 
@@ -1236,7 +1871,8 @@ function renderSecondary(svg){
           points += " " + x2 + "," + (y+STRAND_ARROW_BASE_WIDTH/2);
           points += " " + startX + "," + (y+STRAND_ARROW_BASE_WIDTH/2);
 
-          drawSVGobj(sseGroup, "polygon", {points: points, style: "stroke-width:1px; stroke:black; fill:" + AA_COLS_2["E"] + colourModifier} )
+          drawSVGobj(sseGroup, "polygon", {points: points, style: "stroke-width:1px; stroke:black; fill:" + "white"} )
+          drawSVGobj(sseGroup, "polygon", {points: points, style: "stroke-width:1px; stroke:black; fill:" + strandBgCol} )
 
         }
 
@@ -1283,6 +1919,7 @@ function deselectSites(refresh = false){
 	
 	// Clear selecting rectangle
 	$("svg").find(".selectionRect").remove();
+	$("#secondarySelectedSites").html("");
 	
 	
 	// Hide accession dialog
@@ -1314,14 +1951,16 @@ function deselectSites(refresh = false){
 
 function selectSites(rescroll = true){
 	
-	// Domain architecture fade out other sequences
+		// Domain architecture fade out other sequences
     if (SELECTED_ACCESSION != null){
       $("#secondary g.domainSeq").attr("select", "false");
       $(`#secondary g.domainSeq[accession="` + SELECTED_ACCESSION + `"]`).attr("select", "true");
+      let accessionSelect = $("#accessionSelect");
+      accessionSelect.val(SELECTED_ACCESSION);
       console.log("setting to deselected");
     }
 
-	// Update canvas colours async
+		// Update canvas colours async
     setTimeout(function(){
 		
 		renderAlignment("alignment", true, "data/align.ali");
@@ -1391,6 +2030,11 @@ function getAlignmentPosFromUngapped(accession, accPos){
 	let alignment = DATA.alignment;
 	let nsites = alignment[accessions[0]].length;
 	let siteSeq = 0;
+
+
+	if (alignment[accession] == null){
+		console.log("cannot find", accession, "in alignment");
+	}
 
 
 	for (let siteAln = 0; siteAln < nsites; siteAln++){
@@ -1517,9 +2161,10 @@ function renderAlignment(divID, isPrimary = true, downloadHref = ""){
       if (aa == "-"){
         col = "#ffffff";
       }else if (isPrimary){
+      	textCol = AA_FONT_COLS[aa];
         col = AA_COLS[aa];
       }else{
-		textCol = AA_FONT_COLS_2[aa];
+				textCol = AA_FONT_COLS_2[aa];
         col = AA_COLS_2[aa];
       }
 
@@ -1539,7 +2184,7 @@ function renderAlignment(divID, isPrimary = true, downloadHref = ""){
 
       // Selected accession?
       if (SELECTED_ACCESSION != null){
-        if (acc != SELECTED_ACCESSION && col.length != 9){
+        if (acc != SELECTED_ACCESSION && col != null && col.length != 9){
           col = col + "33";
           textCol = textCol + "aa";
         }
@@ -1618,6 +2263,10 @@ function renderAlignment(divID, isPrimary = true, downloadHref = ""){
     // Features
     for (var feature in features){
 
+    	if (HIDE_PROTOZYME && feature == "Protozyme"){
+    		continue;
+    	}
+
       var range = features[feature].range;
       var level = features[feature].level;
       if (range == "") continue;
@@ -1680,8 +2329,9 @@ function renderAlignment(divID, isPrimary = true, downloadHref = ""){
 		// SSE legend
 		if (!isPrimary){
 			toolbar.append($(`<span class="sseLegend" > <span style="color:` + AA_FONT_COLS_2["N"] + `; background-color:` + AA_COLS_2["N"] + `">N</span> - none </span>`));
-			toolbar.append($(`<span class="sseLegend" > <span style="color:` + AA_FONT_COLS_2["S"] + `; background-color:` + AA_COLS_2["S"] + `">S</span> - bend </span>`));
+			
 			toolbar.append($(`<span class="sseLegend" > <span style="color:` + AA_FONT_COLS_2["T"] + `; background-color:` + AA_COLS_2["T"] + `">T</span> - H-bonded turn </span>`));
+			toolbar.append($(`<span class="sseLegend" > <span style="color:` + AA_FONT_COLS_2["S"] + `; background-color:` + AA_COLS_2["S"] + `">S</span> - bend </span>`));
 			toolbar.append($(`<span class="sseLegend" > <span style="color:` + AA_FONT_COLS_2["B"] + `; background-color:` + AA_COLS_2["B"] + `">B</span> - b-bridge </span>`));
 			toolbar.append($(`<span class="sseLegend" > <span style="color:` + AA_FONT_COLS_2["I"] + `; background-color:` + AA_COLS_2["I"] + `">I</span> - p-helix </span>`));
 			toolbar.append($(`<span class="sseLegend" > <span style="color:` + AA_FONT_COLS_2["G"] + `;background-color:` + AA_COLS_2["G"] + `">G</span> - 310 helix </span>`));
@@ -1809,8 +2459,11 @@ function loadAllFiles(resolve = function() { }){
 
   DATA = {};
 
-  // Read info json
-  fetch("info.json").then(response => response.text()).then(text => renderInfo(text, resolve));
+
+	// Load accessions
+	fetch("/data/accessions.json").then(response => response.text()).then(text => loadAcccessionMetadata(text, resolve));
+	
+
 
 
 }
@@ -1826,9 +2479,12 @@ function loadAcccessionMetadata(text, resolve = function() { }){
 	DATA.metadata = json;
 	
 	// features[feature] = {range: range, level: level};
+	
+	
+		
+	// Read info json
+	fetch("info.json").then(response => response.text()).then(text => renderInfo(text, resolve));
 
-	// Load alignment
-  fetch("data/align.ali").then(response => response.text()).then(text => loadAlignment(text, resolve));
 	
 }
 
@@ -1933,6 +2589,7 @@ function loadSecondaryStructureAlignment(fasta, resolve = function() { }){
 }
 
 
+/*
 function loadStructures(listOfStructures, resolve){
 
 
@@ -2052,6 +2709,952 @@ function loadStructure(structures, resolve = function() { } ){
 
 
 }
+
+
+*/
+
+// Draw a class I or II catalytic domain layout
+function renderCatalyticDomainInserts(text, classNr){
+
+	var json = null;
+    //if (text == null || text == "") return;
+
+	
+	if (text != null && text != "" && text[0] != "<"){
+		text = text.replaceAll("\n", "").replaceAll("\r", "");
+		json = JSON.parse(text);
+		console.log(json);
+	}
+   
+	
+	let className = classNr == 1 ? "I" : "II";
+
+    // Prepare html and svg
+    $("#tertiaryTable").after("<div id='catalyticDomainDIV'></div>");
+    $("#catalyticDomainDIV").append("<h2>Catalytic domain</h1>")
+    $("#catalyticDomainDIV").append("<ul class='flexContainer'></ul>");
+    $("#catalyticDomainDIV .flexContainer").append(`<li>
+                                                      <div>
+														                            <div style='text-align:center'><b>Fig:</b> Map of the class ` + className + ` catalytic domain. Click on an element to select it. Figure is not to scale.</div>
+                                                        <svg id='catalyticSVG' height=0 width=0 overflow='auto'></svg>
+                                                      </div>
+                                                    </li>`);
+    
+
+
+   
+
+    // Populate the table
+	if (json != null){
+		
+		
+		 refSeqLink = classNr == 1 ? '<a href="/class1/trp">TrpRS</a>' :  '<a href="/class2/gly2">tetrameric GlyRS</a>';
+		
+		$("#catalyticDomainDIV .flexContainer").append(`<li>
+													<div id='tableDiv' class='svgDiv'>
+													  <div style='text-align:center'><b>Table:</b> The size (aa) of each element in the catalytic domain relative to the ` + refSeqLink + ` reference sequence.</div>
+													  <div style='overflow:auto;'>
+							  <table class='maptable' id='catalyticTable'></table>
+							</div>
+												  </div>
+												</li>`);
+
+
+		// Header
+		let tr = $("<tr></tr>")
+		$(tr).append("<th class='accession'>Sequence</th>");
+		for (let eleNr = 0; eleNr < json.elements.length; eleNr++){
+		  let ele = json.elements[eleNr];
+		  let eleType = ele.substring(0, 1);
+		  $(tr).append("<th ele='" + ele + "' type='" +eleType + "'>" + ele + "</th>");
+		}
+		$("#catalyticTable").append(tr);
+
+
+
+		 // Body
+		 for (var seqNum = 0; seqNum < json.accessions.length; seqNum++){
+		  let acc = json.accessions[seqNum];
+		  let accTidy = getNameOfAccession(acc);
+		  let trAcc = $("<tr></tr>")
+
+
+		  // Reference sequence row?
+		  let isRef = false;
+		  if (acc == json.refSeq){
+			  continue;
+		  }
+		  $(trAcc).append("<td class='accession'>" + accTidy + "</td>");
+		  for (let eleNr = 0; eleNr < json.elements.length; eleNr++){
+			let ele = json.elements[eleNr];
+			let eleType = ele.substring(0, 1);
+			var dlen = json[[acc + "_" + ele + ".dlength"]];
+			if (dlen > 0) dlen = "+" + dlen;
+			if (dlen == 0) dlen = "";
+			$(trAcc).append("<td ele='" + ele + "' type='" +eleType + "'>" + dlen + "</td>");
+		  }
+		  $("#catalyticTable").append(trAcc);
+		  
+		 }
+		  
+		  // Ref seq at bottom
+		  for (var seqNum = 0; seqNum < json.accessions.length; seqNum++){
+			  
+			let acc = json.accessions[seqNum];
+			if (acc == json.refSeq){
+				
+				let accTidy = getNameOfAccession(acc);
+				let trAcc = $("<tr></tr>")
+				$(trAcc).append("<td  class='accession'>" + accTidy + "</td>");
+				trAcc.addClass("refSeq");
+				trAcc.attr("title", "Reference structure");
+				for (let eleNr = 0; eleNr < json.elements.length; eleNr++){
+					let ele = json.elements[eleNr];
+					let eleType = ele.substring(0, 1);
+					var len = json[[acc + "_" + ele + ".length"]];
+					$(trAcc).append("<td ele='" + ele + "' type='" + eleType + "'>" + len + "</td>");
+				}
+				$("#catalyticTable").append(trAcc);
+			}
+			
+
+
+		}
+
+
+		$("#tableDiv").hide(0);
+		
+		
+	}
+
+
+    // Populate the svg
+    let svg = $("#catalyticSVG");
+    svg.width(CATALYTIC_DOMAIN_WIDTH);
+    svg.height(CATALYTIC_DOMAIN_HEIGHT);
+
+
+		let motifColBase = "#ba2e00"; //LEVEL_1_COL.substr(0, 7);
+		let highlightColBase = "#008cba"; 
+
+
+    // Define colour gradients
+    let defs = $(drawSVGobj(svg, "defs", {} ));
+    let helixGradient = $(drawSVGobj(defs, "linearGradient", {id: "helixGradient"} ));
+    $(drawSVGobj(helixGradient, "stop", {offset: "0%", stop_color: AA_COLS_2["H"] + "99"} ));
+    $(drawSVGobj(helixGradient, "stop", {offset: "100%", stop_color: AA_COLS_2["H"] + "cc"} ));
+    let helixBackgroundGradient = $(drawSVGobj(defs, "linearGradient", {id: "helixBackgroundGradient"} ));
+    $(drawSVGobj(helixBackgroundGradient, "stop", {offset: "0%", stop_color: "#111111aa"} ));
+    $(drawSVGobj(helixBackgroundGradient, "stop", {offset: "100%", stop_color: "#111111bb"} ));
+    let strandGradient = $(drawSVGobj(defs, "linearGradient", {id: "strandGradient"} ));
+    $(drawSVGobj(strandGradient, "stop", {offset: "0%", stop_color: AA_COLS_2["E"] + "77"} ));
+    $(drawSVGobj(strandGradient, "stop", {offset: "100%", stop_color: AA_COLS_2["E"] + "cc"} ));
+    let strandBackgroundGradient = $(drawSVGobj(defs, "linearGradient", {id: "strandBackgroundGradient"} ));
+    $(drawSVGobj(strandBackgroundGradient, "stop", {offset: "0%", stop_color: "#111111aa"} ));
+    $(drawSVGobj(strandBackgroundGradient, "stop", {offset: "100%", stop_color: "#111111ee"} ));
+    let motifGradient = $(drawSVGobj(defs, "linearGradient", {id: "motifGradient"} ));
+    $(drawSVGobj(motifGradient, "stop", {offset: "0%", stop_color: motifColBase + "99"} ));
+    $(drawSVGobj(motifGradient, "stop", {offset: "100%", stop_color: motifColBase + "ee"} ));
+    let highlightGradient = $(drawSVGobj(defs, "linearGradient", {id: "highlightGradient"} ));
+    $(drawSVGobj(highlightGradient, "stop", {offset: "0%", stop_color: highlightColBase + "11"} ));
+    $(drawSVGobj(highlightGradient, "stop", {offset: "100%", stop_color: highlightColBase + "44"} ));
+
+
+    let helixCol = "url(#helixGradient)";
+    let strandCol = "url(#strandGradient)";
+    let motifCol = "url(#motifGradient)";
+    let highlightCol = "url(#highlightGradient)";
+    let helixBgCol  = "url(#helixBackgroundGradient)";
+    let strandBgCol  = "url(#strandBackgroundGradient)";
+
+    // Ele width and height
+    let nElementsHorizontal = classNr == 1 ? 9 : 9;
+    let nElementsVertical = 3;
+    let eleWidth = (CATALYTIC_DOMAIN_WIDTH-CATALYTIC_DOMAIN_XPAD) / (nElementsHorizontal+1) - CATALYTIC_DOMAIN_XPAD;
+    
+	
+
+
+	// Top and bottom layers
+	let bottomLayer = $(drawSVGobj(svg, "g", {style:""} )); 
+	let topLayer = $(drawSVGobj(svg, "g", {style:""} )); 
+	
+
+
+	if (classNr == 1){
+
+		let eleHeight = (CATALYTIC_DOMAIN_HEIGHT-4*CATALYTIC_DOMAIN_YPAD);
+
+  		// Crossover 1
+		let crossover_ly = CATALYTIC_DOMAIN_YPAD*0.7;
+		let c1_x1 = CATALYTIC_DOMAIN_XPAD + (CATALYTIC_DOMAIN_XPAD+eleWidth)*2.7;
+		let c1_x2 = CATALYTIC_DOMAIN_XPAD + (CATALYTIC_DOMAIN_XPAD+eleWidth)*5.3;
+		drawSVGobj(bottomLayer, "rect", {rx: 2, x: c1_x1, width: c1_x2-c1_x1, y: crossover_ly, height: eleHeight+CATALYTIC_DOMAIN_YPAD*2.7, style: "fill:" + highlightCol + "; stroke:black; stroke-width:1px;"});
+		drawSVGobj(bottomLayer, "text", {x: (c1_x1+c1_x2)/2, y: crossover_ly+eleHeight+CATALYTIC_DOMAIN_YPAD*3.0, style: "font-size:" + CATALYTIC_DOMAIN_MOTIF_FONT_SIZE + "px; text-anchor:middle; dominant-baseline:middle; "}, "Crossover 1");
+	
+
+		// Crossover 2
+		let c2_x1 = CATALYTIC_DOMAIN_XPAD + (CATALYTIC_DOMAIN_XPAD+eleWidth)*6.7;
+		let c2_x2 = CATALYTIC_DOMAIN_XPAD + (CATALYTIC_DOMAIN_XPAD+eleWidth)*9.3;
+		drawSVGobj(bottomLayer, "rect", {rx: 2, x: c2_x1, width: c2_x2-c2_x1, y: crossover_ly, height: eleHeight+CATALYTIC_DOMAIN_YPAD*2.7, style: "fill:" + highlightCol + "; stroke:black; stroke-width:1px;"});
+		drawSVGobj(bottomLayer, "text", {x: (c2_x1+c2_x2)/2, y: crossover_ly+eleHeight+CATALYTIC_DOMAIN_YPAD*3.0, style: "font-size:" + CATALYTIC_DOMAIN_MOTIF_FONT_SIZE + "px; text-anchor:middle; dominant-baseline:middle; "}, "Crossover 2");
+	
+
+
+
+	  // 5 parallel strands and 4 helices
+    let odd = true;
+	  let oddLoop = false;
+    for (let i = 0; i <= 9 ; i++){
+		  
+		  
+			
+			let x = CATALYTIC_DOMAIN_XPAD + (CATALYTIC_DOMAIN_XPAD+eleWidth)*i;
+	    let y = CATALYTIC_DOMAIN_YPAD*2;
+		
+		
+		 // Loop
+		if (i <= 9){
+			let nr = i;
+			if (i == 4) nr = 1;
+			if (i == 3) nr = 2;
+			if (i == 2) nr = 3;
+			if (i == 1) nr = 4;
+			if (i == 0) nr = 5;
+			let eleName = "L" + nr;
+			
+			let xMid = x;
+			let yLoop = y;
+			let endPoint, control1, control2 = [];
+			let ylab = y;
+			let xlab = x;
+			let onTop = false;
+			
+			if (i == 5) oddLoop = !oddLoop;
+
+
+			let loopCol = "black";
+			
+			// N term
+			if (i == 5){
+				eleName = "N";
+				yLoop = y+eleHeight;
+				endPoint = [xMid, yLoop+3*CATALYTIC_DOMAIN_YPAD/4];
+				control1 = [xMid-CATALYTIC_DOMAIN_XPAD/3, yLoop+1*(CATALYTIC_DOMAIN_YPAD)/4];
+				control2 = [xMid+CATALYTIC_DOMAIN_XPAD/3, yLoop+2*(CATALYTIC_DOMAIN_YPAD)/4];	
+				xlab = xMid;
+				ylab = yLoop+CATALYTIC_DOMAIN_YPAD + 5;
+			}
+			
+			// C term
+			else if (i == 9){
+				eleName = "C";
+				endPoint = [xMid, yLoop-3*CATALYTIC_DOMAIN_YPAD/4];
+				control1 = [xMid-CATALYTIC_DOMAIN_XPAD/3, yLoop-1*(CATALYTIC_DOMAIN_YPAD)/4];
+				control2 = [xMid+CATALYTIC_DOMAIN_XPAD/3, yLoop-2*(CATALYTIC_DOMAIN_YPAD)/4];	
+				xlab = xMid;
+				ylab = yLoop-CATALYTIC_DOMAIN_YPAD - 5;
+				loopCol = motifColBase;
+				onTop = true;
+			}
+			
+			
+			// Long loop between S3 and H3
+			else if (i == 0){
+				xMid = CATALYTIC_DOMAIN_XPAD + (CATALYTIC_DOMAIN_XPAD+eleWidth)*1;
+				endPoint = [CATALYTIC_DOMAIN_XPAD + (CATALYTIC_DOMAIN_XPAD+eleWidth)*6, yLoop];
+				control1 = [xMid-CATALYTIC_DOMAIN_CUBIC_RIGHT_DX, yLoop-2.5*CATALYTIC_DOMAIN_YPAD];
+				control2 = [endPoint[0]-CATALYTIC_DOMAIN_CUBIC_RIGHT_DX, yLoop-2.5*CATALYTIC_DOMAIN_YPAD];
+				xlab = (xMid+endPoint[0])/2-CATALYTIC_DOMAIN_CUBIC_RIGHT_DX;
+				ylab = yLoop-2*CATALYTIC_DOMAIN_YPAD+20;
+				onTop = true;
+				
+
+			
+			// Top loop
+			}else if (oddLoop){
+				endPoint = [xMid + CATALYTIC_DOMAIN_XPAD+eleWidth, yLoop];
+				control1 = [xMid-CATALYTIC_DOMAIN_CUBIC_RIGHT_DX, yLoop-CATALYTIC_DOMAIN_YPAD];
+				control2 = [endPoint[0]-CATALYTIC_DOMAIN_CUBIC_RIGHT_DX, yLoop-CATALYTIC_DOMAIN_YPAD];
+				xlab = (xMid+endPoint[0])/2-CATALYTIC_DOMAIN_CUBIC_RIGHT_DX;
+				ylab = yLoop-CATALYTIC_DOMAIN_YPAD-3;
+				onTop = true;
+			}
+			
+			// Bottom loop
+			else{
+				yLoop = y+eleHeight;
+				endPoint = [xMid + CATALYTIC_DOMAIN_XPAD+eleWidth, yLoop];
+				control1 = [xMid-CATALYTIC_DOMAIN_CUBIC_RIGHT_DX, yLoop+CATALYTIC_DOMAIN_YPAD];
+				control2 = [endPoint[0]-CATALYTIC_DOMAIN_CUBIC_RIGHT_DX, yLoop+CATALYTIC_DOMAIN_YPAD];
+				xlab = (xMid+endPoint[0])/2-CATALYTIC_DOMAIN_CUBIC_RIGHT_DX;
+				ylab = yLoop+CATALYTIC_DOMAIN_YPAD+3;
+			}
+			
+			
+			
+			// Start and stop positions in alignment
+			let eleStart = json == null ? -1 : json["median_" + eleName + ".start"];
+			let eleStop = json == null ? -1 : json["median_" + eleName + ".end"];
+			if (eleStart == null) eleStart = -1;
+			if (eleStop == null) eleStop = -1;
+			
+				
+			let d = "M " + xMid + " " + yLoop  + " C " + control1[0] + " " + control1[1] + ", " + control2[0] + " " + control2[1] + ", " + endPoint[0] + " " + endPoint[1];
+			let group;
+			if (eleName == "N" || eleName == "C"){
+				group = $(drawSVGobj(onTop ? topLayer : bottomLayer, "g", {element: eleName, style:""} )); // No click events
+			}else{
+				group = $(drawSVGobj(onTop ? topLayer : bottomLayer, "g", {element: eleName, start:eleStart, end: eleStop, style:"cursor:pointer"} ));
+			}
+			drawSVGobj(group, "path", {d: d, style: "stroke-width:" + CATALYTIC_DOMAIN_LOOP_WIDTH + "px; stroke:" + loopCol + "; fill:transparent; stroke-linecap:round"} );
+			drawSVGobj(group, "text", {x: xlab, y: ylab, style: "font-size:" + CATALYTIC_DOMAIN_FONT_SIZE + "px; text-anchor:middle; dominant-baseline:central; "}, eleName);
+
+
+			// L9 C-terminal: KMSKS
+			if (i == 9){
+				drawSVGobj(group, "text", {x: xlab - CATALYTIC_DOMAIN_MOTIF_FONT_SIZE*2, y: y - CATALYTIC_DOMAIN_FONT_SIZE/2, style: "font-size:" + CATALYTIC_DOMAIN_MOTIF_FONT_SIZE + "px;  font-weight: bold; fill:" + motifColBase + "; text-anchor:middle; dominant-baseline:end; "}, "KMSKS");
+			}
+
+
+			if (i == 0) continue;
+			oddLoop = !oddLoop;
+
+		}
+		
+		
+		
+		
+		// Helix
+		if (i % 2 == 0){
+			
+			
+			let nr = i;
+			if (i == 4) nr = 1;
+			if (i == 2) nr = 2;
+			if (i == 6) nr = 3;
+			if (i == 8) nr = 4;
+			var eleName = "H" + nr;
+			
+			
+			// Start and stop positions in alignment
+			let eleStart = json == null ? -1 : json["median_" + eleName + ".start"];
+			let eleStop = json == null ? -1 : json["median_" + eleName + ".end"];
+			if (eleStart == null) eleStart = -1;
+			if (eleStop == null) eleStop = -1;
+			
+			let group = $(drawSVGobj(bottomLayer, "g", {element: eleName, start:eleStart, end:eleStop, style:"cursor:pointer"} ));
+			let helixY = y;
+			let eleHeightHelix = eleHeight;
+
+
+			let thisCol = helixCol;
+
+			// Bottom circle
+			drawSVGobj(group, "ellipse", {cx: x, cy: helixY+eleHeightHelix, rx: eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP/2, ry: CATALYTIC_DOMAIN_HELIX_CORNER_RADIUS, style: "stroke-width:0px; fill:white"} );
+			drawSVGobj(group, "ellipse", {cx: x, cy: helixY+eleHeightHelix, rx: eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP/2, ry: CATALYTIC_DOMAIN_HELIX_CORNER_RADIUS, style: "stroke-width:1px; stroke:black; fill:" + thisCol} );
+		
+
+			// Rectangle
+			drawSVGobj(group, "rect", {x: x-eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP/2, y: helixY, width: eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP, height: eleHeightHelix, style: "stroke-width:0px; fill:white"} );
+			drawSVGobj(group, "rect", {x: x-eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP/2, y: helixY, width: eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP, height: eleHeightHelix, style: "stroke-width:0px; fill:" + helixCol} );
+			
+
+
+
+
+			// HIGH motif on H1
+			if (eleName == "H1"){
+
+				thisCol = motifCol;
+
+
+				//drawSVGobj(group, "rect", {rx: CATALYTIC_DOMAIN_HELIX_CORNER_RADIUS, x: x-eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP/2, y: helixY, width: eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP, height: eleHeightHelix/4, style: "stroke-width:0px; fill:" + motifCol + "; stroke:black"} );
+				//drawSVGobj(group, "rect", {rx: CATALYTIC_DOMAIN_HELIX_CORNER_RADIUS, x: x-eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP/2, y: helixY, width: eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP, height: eleHeightHelix/4, style: "stroke-width:1px; stroke:black; fill:transparent"} );
+				
+
+				// Bottom circle
+				drawSVGobj(group, "ellipse", {cx: x, cy: helixY+eleHeightHelix/4, rx: eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP/2, ry: CATALYTIC_DOMAIN_HELIX_CORNER_RADIUS, style: "stroke-width:0px; fill:white"} );
+				drawSVGobj(group, "ellipse", {cx: x, cy: helixY+eleHeightHelix/4, rx: eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP/2, ry: CATALYTIC_DOMAIN_HELIX_CORNER_RADIUS, style: "stroke-width:1px; stroke:black; fill:" + thisCol} );
+		
+				// Rectangle
+				drawSVGobj(group, "rect", {x: x-eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP/2, y: helixY, width: eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP, height: eleHeightHelix/4, style: "stroke-width:0px; fill:white"} );
+				drawSVGobj(group, "rect", {x: x-eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP/2, y: helixY, width: eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP, height: eleHeightHelix/4, style: "stroke-width:0px; fill:" + thisCol} );
+				
+
+				// Text
+				drawSVGobj(group, "text", {x: x-eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP/2 - CATALYTIC_DOMAIN_FONT_SIZE/2, y: y - CATALYTIC_DOMAIN_FONT_SIZE/2, style: "font-size:" + CATALYTIC_DOMAIN_MOTIF_FONT_SIZE + "px; text-anchor:middle; dominant-baseline:end; font-weight:bold; fill:" + motifColBase + "; "}, "HIGH");
+	
+
+
+			}
+
+
+			// Rect border lines
+			drawSVGobj(group, "line", {x1: x-eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP/2, x2: x-eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP/2, y1: helixY, y2: helixY+eleHeightHelix, style: "stroke-width:1px; stroke: black;"} );
+			drawSVGobj(group, "line", {x1: x+eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP/2, x2: x+eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP/2, y1: helixY, y2: helixY+eleHeightHelix, style: "stroke-width:1px; stroke: black;"} );
+
+						
+			// Top circle
+			drawSVGobj(group, "ellipse", {cx: x, cy: helixY, rx: eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP/2, ry: CATALYTIC_DOMAIN_HELIX_CORNER_RADIUS, style: "stroke-width:0px; fill:white"} );
+			drawSVGobj(group, "ellipse", {cx: x, cy: helixY, rx: eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP/2, ry: CATALYTIC_DOMAIN_HELIX_CORNER_RADIUS, style: "stroke-width:1px; stroke:black; fill:" + helixBgCol } );
+		
+
+
+	
+			
+
+			// Text label
+			drawSVGobj(group, "text", {x: x, y: helixY+eleHeightHelix/2, style: "font-size:" + CATALYTIC_DOMAIN_FONT_SIZE + "px; text-anchor:middle; dominant-baseline:central; "}, eleName);
+	
+
+			
+		}
+		
+		
+		
+		// Strand
+		else if (i % 2 == 1){
+			
+		
+			x = x - CATALYTIC_DOMAIN_ARROW_BG_WIDTH/2;
+
+
+			var y1, y2, y3, ybg1, ybg2, ybg3;
+			if (odd){
+
+			  // Up arrow
+			  y1 = y+eleHeight;
+			  y2 = y+CATALYTIC_DOMAIN_STRAND_ARROW_HEAD_LEN_1;
+			  y3 = y+CATALYTIC_DOMAIN_STRAND_ARROW_HEAD_LEN_2;
+			  y4 = y;
+
+				ybg1 = y1 - CATALYTIC_DOMAIN_ARROW_BG_WIDTH;
+			  ybg2 = y4 - CATALYTIC_DOMAIN_ARROW_BG_WIDTH;
+			  ybg3 = y3 - CATALYTIC_DOMAIN_ARROW_BG_WIDTH;
+
+
+			}else{
+
+			  // Down arrow
+			  y1 = y;
+			  y2 = y+eleHeight-CATALYTIC_DOMAIN_STRAND_ARROW_HEAD_LEN_1;
+			  y3 = y+eleHeight-CATALYTIC_DOMAIN_STRAND_ARROW_HEAD_LEN_2;
+			  y4 = y+eleHeight;
+
+
+			  ybg1 = yStrand - CATALYTIC_DOMAIN_ARROW_BG_WIDTH;
+			  ybg2 = y4 - CATALYTIC_DOMAIN_ARROW_BG_WIDTH;
+			  ybg3 = y3 - CATALYTIC_DOMAIN_ARROW_BG_WIDTH;
+
+			}
+
+			var points =    (x-eleWidth*CATALYTIC_DOMAIN_STRAND_ARROW_BASE_WIDTH_PROP/2) + "," + (y1);
+			points += " " + (x-eleWidth*CATALYTIC_DOMAIN_STRAND_ARROW_BASE_WIDTH_PROP/2) + "," + (y2);
+			points += " " + (x-eleWidth/2) + "," + (y3);
+			points += " " + x + "," + y4;
+			points += " " + (x+eleWidth/2) + "," + (y3);
+			points += " " + (x+eleWidth*CATALYTIC_DOMAIN_STRAND_ARROW_BASE_WIDTH_PROP/2) + "," + (y2);
+			points += " " + (x+eleWidth*CATALYTIC_DOMAIN_STRAND_ARROW_BASE_WIDTH_PROP/2) + "," + (y1);
+
+
+		
+
+			// Strand nr
+			let nr = i;
+			if (i == 5) nr = 1;
+			if (i == 3) nr = 2;
+			if (i == 1) nr = 3;
+			if (i == 7) nr = 4;
+			if (i == 9) nr = 5;
+			var eleName = "S" + nr;
+			
+			
+			// Start and stop positions in alignment
+			let eleStart = json == null ? -1 : json["median_" + eleName + ".start"];
+			let eleStop = json == null ? -1 : json["median_" + eleName + ".end"];
+			if (eleStart == null) eleStart = -1;
+			if (eleStop == null) eleStop = -1;
+
+
+
+			let group = $(drawSVGobj(bottomLayer, "g", {element: eleName, start: eleStart, end: eleStop, style:"cursor:pointer"} ));
+
+
+
+
+			// Background of arrow side
+			let pointsBG =    (x+eleWidth*CATALYTIC_DOMAIN_STRAND_ARROW_BASE_WIDTH_PROP/2) + "," + (y1);
+			pointsBG += " " + (x+eleWidth*CATALYTIC_DOMAIN_STRAND_ARROW_BASE_WIDTH_PROP/2 + CATALYTIC_DOMAIN_ARROW_BG_WIDTH) + "," + (ybg1);
+			pointsBG += " " + (x+eleWidth*CATALYTIC_DOMAIN_STRAND_ARROW_BASE_WIDTH_PROP/2 + CATALYTIC_DOMAIN_ARROW_BG_WIDTH) + "," + (y2);
+			pointsBG += " " + (x+eleWidth*CATALYTIC_DOMAIN_STRAND_ARROW_BASE_WIDTH_PROP/2) + "," + (y2);
+			drawSVGobj(group, "polygon", {points: pointsBG, style: "stroke-width:1px; stroke:black; fill:" + strandBgCol} )
+
+
+			// Background of arrow head
+			pointsBG =    (x) + "," + (y4);
+			pointsBG += " " + (x + CATALYTIC_DOMAIN_ARROW_BG_WIDTH) + "," + (ybg2);
+			pointsBG += " " + (x+eleWidth/2 + CATALYTIC_DOMAIN_ARROW_BG_WIDTH) + "," + (ybg3);
+			pointsBG += " " + (x+eleWidth/2+(odd ? 1 : 0)) + "," + (y3+(odd ? 1 : 0) );
+			drawSVGobj(group, "polygon", {points: pointsBG, style: "stroke-width:1px; stroke:black; fill:" + strandBgCol} )
+			
+
+			if (!odd){
+
+				// Top of arrow (the rectangular base)
+				pointsBG =    (x+eleWidth*CATALYTIC_DOMAIN_STRAND_ARROW_BASE_WIDTH_PROP/2) + "," + (y1);
+				pointsBG += " " + (x+eleWidth*CATALYTIC_DOMAIN_STRAND_ARROW_BASE_WIDTH_PROP/2 + CATALYTIC_DOMAIN_ARROW_BG_WIDTH) + "," + (ybg1);
+				pointsBG += " " + (x-eleWidth*CATALYTIC_DOMAIN_STRAND_ARROW_BASE_WIDTH_PROP/2 + CATALYTIC_DOMAIN_ARROW_BG_WIDTH) + "," + (ybg1);
+				pointsBG += " " + (x-eleWidth*CATALYTIC_DOMAIN_STRAND_ARROW_BASE_WIDTH_PROP/2) + "," + (y1);
+				drawSVGobj(group, "polygon", {points: pointsBG, style: "stroke-width:1px; stroke:black; fill:" + strandBgCol} )
+
+			}
+
+
+
+
+			// The main arrow strand
+			drawSVGobj(group, "polygon", {points: points, style: "stroke-width:1px; stroke:black; fill:white"} )
+			drawSVGobj(group, "polygon", {points: points, style: "stroke-width:1px; stroke:black; fill:" + strandCol} )
+			drawSVGobj(group, "text", {x: x, y: y+eleHeight/2, style: "font-size:" + CATALYTIC_DOMAIN_FONT_SIZE + "px; text-anchor:middle; dominant-baseline:central; "}, eleName);
+			
+
+
+
+		
+		}
+
+
+
+		
+		odd = !odd;
+		  
+		  
+	  }
+
+
+
+
+    }else if (classNr == 2){
+
+
+      // 6 antiparallel strands and 3 helices
+      let odd = false;
+	  	let oddLoop = false;
+      for (let i = 0; i <= 9 ; i++){
+
+		let eleHeight = (CATALYTIC_DOMAIN_HEIGHT-4*CATALYTIC_DOMAIN_YPAD);
+
+        var x = CATALYTIC_DOMAIN_XPAD + (CATALYTIC_DOMAIN_XPAD+eleWidth)*i;
+        var y = CATALYTIC_DOMAIN_YPAD*2;
+		
+
+		// Loop
+		if (i <= 9){
+			
+			
+			let nr = i;
+			if (i == 5) nr = 8;
+			if (i == 6) nr = 7;
+			if (i == 7) nr = 6;
+			if (i == 8) nr = 5;
+			
+			let eleName = "L" + nr;
+			let xMid = x;
+			let yLoop = y;
+			
+
+			let endPoint, control1, control2 = [];
+			let ylab = y;
+			let xlab = x;
+			let onTop = false;
+
+			let pathCol = "black";
+
+			// N term
+			if (i == 0){
+				eleName = "N";
+				yLoop = y+eleHeight;
+				xMid = CATALYTIC_DOMAIN_XPAD + (CATALYTIC_DOMAIN_XPAD+eleWidth)*1
+				endPoint = [xMid, yLoop+3*CATALYTIC_DOMAIN_YPAD/4];
+				control1 = [xMid-CATALYTIC_DOMAIN_XPAD/3, yLoop+1*(CATALYTIC_DOMAIN_YPAD)/4];
+				control2 = [xMid+CATALYTIC_DOMAIN_XPAD/3, yLoop+2*(CATALYTIC_DOMAIN_YPAD)/4];	
+				xlab = xMid;
+				ylab = yLoop+CATALYTIC_DOMAIN_YPAD + 5;
+			}
+			
+			// C term
+			else if (i == 9){
+				eleName = "C";
+				yLoop = y;
+				xMid = CATALYTIC_DOMAIN_XPAD + (CATALYTIC_DOMAIN_XPAD+eleWidth)*5
+				endPoint = [xMid, yLoop-3*CATALYTIC_DOMAIN_YPAD/4];
+				control1 = [xMid-CATALYTIC_DOMAIN_XPAD/3, yLoop-1*(CATALYTIC_DOMAIN_YPAD)/4];
+				control2 = [xMid+CATALYTIC_DOMAIN_XPAD/3, yLoop-2*(CATALYTIC_DOMAIN_YPAD)/4];	
+				xlab = xMid;
+				ylab = yLoop-CATALYTIC_DOMAIN_YPAD - 5;
+				onTop = true;
+				
+			}
+			
+			// Long loop from S2 to H3
+			else if (i == 4){
+				yLoop = y+eleHeight;
+				endPoint = [CATALYTIC_DOMAIN_XPAD + (CATALYTIC_DOMAIN_XPAD+eleWidth)*9, yLoop];
+				control1 = [xMid-CATALYTIC_DOMAIN_CUBIC_RIGHT_DX, yLoop+2.5*CATALYTIC_DOMAIN_YPAD];
+				control2 = [endPoint[0]-CATALYTIC_DOMAIN_CUBIC_RIGHT_DX, yLoop+2.5*CATALYTIC_DOMAIN_YPAD];	
+				ylab = yLoop+2*CATALYTIC_DOMAIN_YPAD-20;
+				xlab = (xMid+endPoint[0])/2-CATALYTIC_DOMAIN_CUBIC_RIGHT_DX;
+				oddLoop = !oddLoop;
+				
+			}
+			
+			
+			// Standard odd loop (top)
+			else if (oddLoop){
+				endPoint = [xMid + CATALYTIC_DOMAIN_XPAD+eleWidth, yLoop];
+				control1 = [xMid-CATALYTIC_DOMAIN_CUBIC_RIGHT_DX, yLoop-CATALYTIC_DOMAIN_YPAD];
+				control2 = [endPoint[0]-CATALYTIC_DOMAIN_CUBIC_RIGHT_DX, yLoop-CATALYTIC_DOMAIN_YPAD];
+				xlab = (xMid+endPoint[0])/2-CATALYTIC_DOMAIN_CUBIC_RIGHT_DX;
+				ylab = yLoop-CATALYTIC_DOMAIN_YPAD-3;
+				onTop = true;
+			}
+			
+			// Standard even loop (bottom)
+			else{
+				yLoop = y+eleHeight;
+				endPoint = [xMid + CATALYTIC_DOMAIN_XPAD+eleWidth, yLoop];
+				control1 = [xMid-CATALYTIC_DOMAIN_CUBIC_RIGHT_DX, yLoop+CATALYTIC_DOMAIN_YPAD];
+				control2 = [endPoint[0]-CATALYTIC_DOMAIN_CUBIC_RIGHT_DX, yLoop+CATALYTIC_DOMAIN_YPAD];
+				xlab = (xMid+endPoint[0])/2-CATALYTIC_DOMAIN_CUBIC_RIGHT_DX;
+				ylab = yLoop+CATALYTIC_DOMAIN_YPAD+3;
+			}
+			
+
+			// Start and stop positions in alignment
+			let eleStart = json == null ? -1 : json["median_" + eleName + ".start"];
+			let eleStop = json == null ? -1 : json["median_" + eleName + ".end"];
+			if (eleStart == null) eleStart = -1;
+			if (eleStop == null) eleStop = -1;
+			
+			let d = "M " + xMid + " " + yLoop  + " C " + control1[0] + " " + control1[1] + ", " + control2[0] + " " + control2[1] + ", " + endPoint[0] + " " + endPoint[1];
+			let group;
+			if (eleName == "N" || eleName == "C"){
+				group = $(drawSVGobj(onTop ? topLayer : bottomLayer, "g", {element: eleName, style:""} )); // No click events
+			}else {
+				group = $(drawSVGobj(onTop ? topLayer : bottomLayer, "g", {element: eleName, start:eleStart, end:eleStop, style:"cursor:pointer"} ));
+			}
+
+
+			// L1 is motif 1
+			if (eleName == "L1"){
+				pathCol = motifColBase;
+				drawSVGobj(group, "text", {x: xlab, y: yLoop, style: "font-size:" + CATALYTIC_DOMAIN_MOTIF_FONT_SIZE + "px; text-anchor:middle; dominant-baseline:central; font-weight:bold; fill:" + motifColBase + "; "}, "M1");
+			}
+
+
+			drawSVGobj(group, "path", {d: d, style: "stroke-width:" + CATALYTIC_DOMAIN_LOOP_WIDTH + "px; stroke:" + pathCol + "; fill:transparent; stroke-linecap:round"} );
+			drawSVGobj(group, "text", {x: xlab, y: ylab, style: "font-size:" + CATALYTIC_DOMAIN_FONT_SIZE + "px; text-anchor:middle; dominant-baseline:central; "}, eleName);
+			
+
+
+			
+		
+			
+		}
+	
+
+		let group;
+
+
+
+		// Strand
+		if (i > 2 && i < 9){
+
+			x = x - CATALYTIC_DOMAIN_ARROW_BG_WIDTH/2;
+			let yStrand = y;
+			
+			// The final short strand
+			if (i == 5){
+				eleHeight = eleHeight/2;
+				yStrand = CATALYTIC_DOMAIN_YPAD*2 + eleHeight;
+			}
+
+			var y1, y2, y3, ybg1, ybg2, ybg3;
+			if (odd){
+
+			  // Up arrow
+			  y1 = yStrand+eleHeight;
+			  ybg1 = y1 - CATALYTIC_DOMAIN_ARROW_BG_WIDTH;
+			  y2 = yStrand+CATALYTIC_DOMAIN_STRAND_ARROW_HEAD_LEN_1;
+			  y3 = yStrand+CATALYTIC_DOMAIN_STRAND_ARROW_HEAD_LEN_2;
+			  y4 = yStrand;
+			  ybg2 = y4 - CATALYTIC_DOMAIN_ARROW_BG_WIDTH;
+			  ybg3 = y3 - CATALYTIC_DOMAIN_ARROW_BG_WIDTH;
+
+
+			}else{
+
+			  // Down arrow
+			  y1 = yStrand+CATALYTIC_DOMAIN_ARROW_BG_WIDTH;
+			  ybg1 = yStrand - CATALYTIC_DOMAIN_ARROW_BG_WIDTH;
+			  y2 = yStrand+eleHeight-CATALYTIC_DOMAIN_STRAND_ARROW_HEAD_LEN_1;
+			  y3 = yStrand+eleHeight-CATALYTIC_DOMAIN_STRAND_ARROW_HEAD_LEN_2;
+			  y4 = yStrand+eleHeight;
+			  ybg2 = y4 - CATALYTIC_DOMAIN_ARROW_BG_WIDTH;
+			  ybg3 = y3 - CATALYTIC_DOMAIN_ARROW_BG_WIDTH;
+
+			}
+
+			let points =    (x-eleWidth*CATALYTIC_DOMAIN_STRAND_ARROW_BASE_WIDTH_PROP/2) + "," + (y1);
+			points += " " + (x-eleWidth*CATALYTIC_DOMAIN_STRAND_ARROW_BASE_WIDTH_PROP/2) + "," + (y2);
+			points += " " + (x-eleWidth/2) + "," + (y3);
+			points += " " + x + "," + y4;
+			points += " " + (x+eleWidth/2) + "," + (y3);
+			points += " " + (x+eleWidth*CATALYTIC_DOMAIN_STRAND_ARROW_BASE_WIDTH_PROP/2) + "," + (y2);
+			points += " " + (x+eleWidth*CATALYTIC_DOMAIN_STRAND_ARROW_BASE_WIDTH_PROP/2) + "," + (y1);
+
+
+		
+
+			// Strand nr
+			let nr = i-2;
+			if (i == 6) nr = 5;
+			if (i == 7) nr = 4;
+			if (i == 8) nr = 3;
+			var eleName = "S" + nr;
+
+			let thisCol = strandCol;
+
+	     // Special case: SH1 
+      if (i == 5){
+      	thisCol = motifCol;
+      	eleName = "";
+      }
+
+
+  
+			let eleStart = json == null ? -1 : json["median_" + eleName + ".start"];
+			let eleStop = json == null ? -1 : json["median_" + eleName + ".end"];
+			if (eleStart == null) eleStart = -1;
+			if (eleStop == null) eleStop = -1;
+		  
+      group = $(drawSVGobj(bottomLayer, "g", {element: eleName, start:eleStart, end: eleStop, style:"cursor:pointer"} ));
+
+
+ 
+      
+		
+
+
+			// Background of arrow side
+			let pointsBG =    (x+eleWidth*CATALYTIC_DOMAIN_STRAND_ARROW_BASE_WIDTH_PROP/2) + "," + (y1);
+			pointsBG += " " + (x+eleWidth*CATALYTIC_DOMAIN_STRAND_ARROW_BASE_WIDTH_PROP/2 + CATALYTIC_DOMAIN_ARROW_BG_WIDTH) + "," + (ybg1);
+			pointsBG += " " + (x+eleWidth*CATALYTIC_DOMAIN_STRAND_ARROW_BASE_WIDTH_PROP/2 + CATALYTIC_DOMAIN_ARROW_BG_WIDTH) + "," + (y2);
+			pointsBG += " " + (x+eleWidth*CATALYTIC_DOMAIN_STRAND_ARROW_BASE_WIDTH_PROP/2) + "," + (y2);
+			drawSVGobj(group, "polygon", {points: pointsBG, style: "stroke-width:1px; stroke:black; fill:" + strandBgCol} )
+
+
+			// Background of arrow head
+			pointsBG =    (x) + "," + (y4);
+			pointsBG += " " + (x + CATALYTIC_DOMAIN_ARROW_BG_WIDTH) + "," + (ybg2);
+			pointsBG += " " + (x+eleWidth/2 + CATALYTIC_DOMAIN_ARROW_BG_WIDTH) + "," + (ybg3);
+			pointsBG += " " + (x+eleWidth/2+(odd ? 1 : 0)) + "," + (y3+(odd ? 1 : 0) );
+			drawSVGobj(group, "polygon", {points: pointsBG, style: "stroke-width:1px; stroke:black; fill:" + strandBgCol} )
+			
+
+			if (!odd){
+
+				// Top of arrow (the rectangular base)
+				pointsBG =    (x+eleWidth*CATALYTIC_DOMAIN_STRAND_ARROW_BASE_WIDTH_PROP/2) + "," + (y1);
+				pointsBG += " " + (x+eleWidth*CATALYTIC_DOMAIN_STRAND_ARROW_BASE_WIDTH_PROP/2 + CATALYTIC_DOMAIN_ARROW_BG_WIDTH) + "," + (ybg1);
+				pointsBG += " " + (x-eleWidth*CATALYTIC_DOMAIN_STRAND_ARROW_BASE_WIDTH_PROP/2 + CATALYTIC_DOMAIN_ARROW_BG_WIDTH) + "," + (ybg1);
+				pointsBG += " " + (x-eleWidth*CATALYTIC_DOMAIN_STRAND_ARROW_BASE_WIDTH_PROP/2) + "," + (y1);
+				drawSVGobj(group, "polygon", {points: pointsBG, style: "stroke-width:1px; stroke:black; fill:" + strandBgCol} )
+
+			}
+
+			// Arrow
+			drawSVGobj(group, "polygon", {points: points, style: "stroke-width:1px; stroke:black; fill:white"} )
+			drawSVGobj(group, "polygon", {points: points, style: "stroke-width:1px; stroke:black; fill:" + thisCol} )
+
+
+
+			// S1 is motif 2
+			if (eleName == "S1"){
+
+
+				let S2_y1 = yStrand+3*eleHeight/4;
+
+				let pointsS2 =    (x-eleWidth*CATALYTIC_DOMAIN_STRAND_ARROW_BASE_WIDTH_PROP/2) + "," + (S2_y1);
+				pointsS2 += " " + (x-eleWidth*CATALYTIC_DOMAIN_STRAND_ARROW_BASE_WIDTH_PROP/2) + "," + (y2);
+				pointsS2 += " " + (x-eleWidth/2) + "," + (y3);
+				pointsS2 += " " + x + "," + y4;
+				pointsS2 += " " + (x+eleWidth/2) + "," + (y3);
+				pointsS2 += " " + (x+eleWidth*CATALYTIC_DOMAIN_STRAND_ARROW_BASE_WIDTH_PROP/2) + "," + (y2);
+				pointsS2 += " " + (x+eleWidth*CATALYTIC_DOMAIN_STRAND_ARROW_BASE_WIDTH_PROP/2) + "," + (S2_y1);
+
+
+				drawSVGobj(group, "polygon", {points: pointsS2, style: "stroke-width:0px; fill:white"} )
+				drawSVGobj(group, "polygon", {points: pointsS2, style: "stroke-width:0px; fill:" + motifCol} )
+				drawSVGobj(group, "polygon", {points: points, style: "stroke-width:1px; stroke:black; fill:transparent"} )
+				drawSVGobj(group, "text", {x: x-eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP/3 - CATALYTIC_DOMAIN_MOTIF_FONT_SIZE, y: yStrand+eleHeight/2, style: "font-size:" + CATALYTIC_DOMAIN_MOTIF_FONT_SIZE + "px; text-anchor:middle; dominant-baseline:central; font-weight:bold; fill:" + motifColBase + "; "}, "M2");
+	
+
+			}
+
+
+
+			drawSVGobj(group, "text", {x: x, y: yStrand+eleHeight/2, style: "font-size:" + CATALYTIC_DOMAIN_FONT_SIZE + "px; text-anchor:middle; dominant-baseline:central; "}, eleName);
+			
+
+
+		
+		}
+
+		
+		
+		
+		// Helix
+		if (i > 0 && i < 10 && (i <= 2 || i == 5 || i == 9)){
+			
+				let helixY = y;
+				let eleHeightHelix = eleHeight;
+				let thisCol = helixCol;
+				let bgCol = helixBgCol;
+
+				
+				let nr = i;
+				if (i == 5) nr = 4;
+				if (i == 9) nr = 3;
+				var eleName = "H" + nr;
+
+				// Special case: SH1
+				if (i == 5){
+					eleName = "SH1";
+					thisCol = motifCol;
+					//bgCol = motifCol;
+					group = group;
+
+
+					// Motif 3 label
+					drawSVGobj(group, "text", {x: x-eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP/3 - CATALYTIC_DOMAIN_MOTIF_FONT_SIZE, y: helixY+eleHeightHelix, style: "font-size:" + CATALYTIC_DOMAIN_MOTIF_FONT_SIZE + "px; text-anchor:middle; dominant-baseline:central; font-weight:bold; fill:" + motifColBase + "; "}, "M3");
+		
+
+
+				}else{
+
+					let eleStart = json == null ? -1 : json["median_" + eleName + ".start"];
+					let eleStop = json == null ? -1 : json["median_" + eleName + ".end"];
+					if (eleStart == null) eleStart = -1;
+					if (eleStop == null) eleStop = -1;
+					
+
+					group = $(drawSVGobj(bottomLayer, "g", {element: eleName, start: eleStart, end: eleStop, style:"cursor:pointer"} ));
+					
+
+
+				}
+				
+				
+
+				
+				
+				
+				
+				// The final helix
+				if (i == 5){
+					//eleHeightHelix = eleHeightHelix;
+				}
+
+
+
+
+				// Cylinder
+
+				// Bottom circle
+				drawSVGobj(group, "ellipse", {cx: x, cy: helixY+eleHeightHelix, rx: eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP/2, ry: CATALYTIC_DOMAIN_HELIX_CORNER_RADIUS, style: "stroke-width:0px; fill:white"} );
+				drawSVGobj(group, "ellipse", {cx: x, cy: helixY+eleHeightHelix, rx: eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP/2, ry: CATALYTIC_DOMAIN_HELIX_CORNER_RADIUS, style: "stroke-width:1px; stroke:black; fill:" + thisCol} );
+			
+
+				// Rectangle
+				drawSVGobj(group, "rect", {x: x-eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP/2, y: helixY, width: eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP, height: eleHeightHelix, style: "stroke-width:0px; fill:white"} );
+				drawSVGobj(group, "rect", {x: x-eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP/2, y: helixY, width: eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP, height: eleHeightHelix, style: "stroke-width:0px; fill:" + thisCol} );
+				
+
+				// Rect border lines
+				drawSVGobj(group, "line", {x1: x-eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP/2, x2: x-eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP/2, y1: helixY, y2: helixY+eleHeightHelix, style: "stroke-width:1px; stroke: black;"} );
+				drawSVGobj(group, "line", {x1: x+eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP/2, x2: x+eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP/2, y1: helixY, y2: helixY+eleHeightHelix, style: "stroke-width:1px; stroke: black;"} );
+				
+
+
+				// Top circle
+				drawSVGobj(group, "ellipse", {cx: x, cy: helixY, rx: eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP/2, ry: CATALYTIC_DOMAIN_HELIX_CORNER_RADIUS, style: "stroke-width:0px; fill:white"} );
+				drawSVGobj(group, "ellipse", {cx: x, cy: helixY, rx: eleWidth*CATALYTIC_DOMAIN_HELIX_WIDTH_PROP/2, ry: CATALYTIC_DOMAIN_HELIX_CORNER_RADIUS, style: "stroke-width:1px; stroke:black; fill:" + bgCol } );
+			
+				// Text label
+				drawSVGobj(group, "text", {x: x, y: helixY+eleHeightHelix/2, style: "font-size:" + CATALYTIC_DOMAIN_FONT_SIZE + "px; text-anchor:middle; dominant-baseline:central; "}, eleName);
+	
+
+
+			
+		}
+		
+		
+		oddLoop = !oddLoop;
+		odd = !odd;
+		
+
+      }
+
+    }
+	
+	// Select an element
+	svg.children("g").children("g").click(function(){
+		
+		let ele = $(this);
+		var sse = $(ele).attr("element");
+		if (sse == "N" || sse == "C") return;
+		console.log( sse);
+		
+		
+		// Clear site selection
+		if ($(ele).attr("class") == "selected"){
+			deselectSites(true);
+			return;
+		}
+
+
+		deselectSites(false);
+		
+		$(svg).children("g").children("g").attr("class", "deselected");
+		$('table.maptable td').addClass("deselected");
+		$('table.maptable th').addClass("deselected");
+		$('table.maptable td[ele="' + sse + '"]').addClass("selected");
+		$('table.maptable th[ele="' + sse + '"]').addClass("selected");
+		
+		$(ele).attr("class", "selected");
+		
+		
+		let start = parseFloat($(ele).attr("start"));
+		let end = parseFloat($(ele).attr("end"));
+		
+		// Residues to select
+		SELECTED_SITES.lower = start;
+    SELECTED_SITES.upper = end;
+		
+		selectSites();
+		
+
+
+		
+	});
+	
+	
+
+
+  }
+
 
 
   function drawSVGobj(svg, type, attr, val = null){

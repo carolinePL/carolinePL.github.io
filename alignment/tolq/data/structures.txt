@@ -1,0 +1,14 @@
+structures/ABQ61581.1.pdb
+structures/AEO47594.1.pdb
+structures/AEO48685.1.pdb
+structures/AIQ91305.1.pdb
+structures/AJJ31712.1.pdb
+structures/AJJ55217.1.pdb
+structures/APW43236.1.pdb
+structures/ATU66653.1.pdb
+structures/BAC59320.1.pdb
+structures/BDB95989.1.pdb
+structures/CDK97994.1.pdb
+structures/QEO41016.1.pdb
+structures/QKY92913.1.pdb
+structures/QXB11428.1.pdb

@@ -1,15 +1,15 @@
 {
-		"name": "motA",
-		"id": "motA",
+		"name": "mota",
+		"id": "mota",
 		"classID": "class1",
-		"fullName": "Flagellar stator protein motA",
+		"fullName": "motA",
 		"icon": "/fig/icon_white.png",
 
 
 		"features": {
 			
 			
-			"Transmembrane region": {"acc": "AAC73831.pdb", "range": "15-230", "level": 4}
+			
 
 		
 		}

@@ -1,0 +1,19 @@
+{
+    "fullName":"DUF2341 vs exbB pairwise comparison",
+    "class":"class1",
+    "icon":"/fig/icon_white.png",
+    "family1":"DUF2341",
+    "family2":"exbB",
+    "fullName1":"DUF2341",
+    "fullName2":"exbB",
+    "description":"Pairwise comparison of the class1 catalytic domains from the DUF2341 (<a href='/class1/DUF2341'>DUF2341</a>) and exbB (<a href='/class1/exbB'>exbB</a>) families. \n\tThe cross-family RMSD is the average RMSD between pairs of structures from different families, and is\n\t larger than the total RMSD, which compares structures both within- and between-families. TM scores are bound between 0 and 1. \n\t This alignment was generated automatically using 3DCOMB (Wang et al. 2011) and was not corrected with any manual adjustment.",
+    "rmsd":    1.622,
+    "tm":    0.8144,
+    "rmsd1":    21.6,
+    "rmsd2":    9.9,
+    "crossFamilyRmsd":    25.5,
+    "rmsdTotal":    14.1,
+    "features":[
+
+    ]
+}

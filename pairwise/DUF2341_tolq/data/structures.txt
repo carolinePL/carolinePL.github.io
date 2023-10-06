@@ -1,0 +1,16 @@
+../../../alignment/DUF2341//data/structures/AAG04082.1.pdb
+../../../alignment/DUF2341//data/structures/QJE97904.1.pdb
+../../../alignment/tolq//data/structures/ABQ61581.1.pdb
+../../../alignment/tolq//data/structures/AEO47594.1.pdb
+../../../alignment/tolq//data/structures/AEO48685.1.pdb
+../../../alignment/tolq//data/structures/AIQ91305.1.pdb
+../../../alignment/tolq//data/structures/AJJ31712.1.pdb
+../../../alignment/tolq//data/structures/AJJ55217.1.pdb
+../../../alignment/tolq//data/structures/APW43236.1.pdb
+../../../alignment/tolq//data/structures/ATU66653.1.pdb
+../../../alignment/tolq//data/structures/BAC59320.1.pdb
+../../../alignment/tolq//data/structures/BDB95989.1.pdb
+../../../alignment/tolq//data/structures/CDK97994.1.pdb
+../../../alignment/tolq//data/structures/QEO41016.1.pdb
+../../../alignment/tolq//data/structures/QKY92913.1.pdb
+../../../alignment/tolq//data/structures/QXB11428.1.pdb

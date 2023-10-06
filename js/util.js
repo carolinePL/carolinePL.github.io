@@ -9,7 +9,7 @@ function renderHeader(includeFooter = true){
 
   
   // Header, footer
-  $("body").prepend("<div id='header'><span class='title'>BACTERIAL FLAGELLUM</span></div>")
+  $("body").prepend("<div id='header'><span class='title'>flagellum.online</span></div>")
 
   if (includeFooter){
     $("body").append("<div id='footer'></div>")

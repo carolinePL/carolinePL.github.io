@@ -1,0 +1,6 @@
+structures/ACX73657.1.pdb
+structures/ACX74513.1.pdb
+structures/AKJ64800.1.pdb
+structures/AQU99646.1.pdb
+structures/ARN57239.1.pdb
+structures/QAR33784.1.pdb

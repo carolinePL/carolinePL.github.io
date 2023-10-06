@@ -1,0 +1,19 @@
+{
+    "fullName":"DUF2341 vs tolQ pairwise comparison",
+    "class":"class1",
+    "icon":"/fig/icon_white.png",
+    "family1":"DUF2341",
+    "family2":"tolQ",
+    "fullName1":"DUF2341",
+    "fullName2":"tolQ",
+    "description":"Pairwise comparison of the class1 catalytic domains from the DUF2341 (<a href='/class1/DUF2341'>DUF2341</a>) and tolQ (<a href='/class1/tolQ'>tolQ</a>) families. \n\tThe cross-family RMSD is the average RMSD between pairs of structures from different families, and is\n\t larger than the total RMSD, which compares structures both within- and between-families. TM scores are bound between 0 and 1. \n\t This alignment was generated automatically using 3DCOMB (Wang et al. 2011) and was not corrected with any manual adjustment.",
+    "rmsd":    1.616,
+    "tm":    0.8973,
+    "rmsd1":    4.72,
+    "rmsd2":    1.41,
+    "crossFamilyRmsd":    3.04,
+    "rmsdTotal":    1.82,
+    "features":[
+
+    ]
+}

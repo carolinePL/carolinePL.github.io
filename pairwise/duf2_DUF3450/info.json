@@ -1,0 +1,19 @@
+{
+    "fullName":"DUF2 vs DUF3450 pairwise comparison",
+    "class":"class1",
+    "icon":"/fig/icon_white.png",
+    "family1":"DUF2",
+    "family2":"DUF3450",
+    "fullName1":"DUF2",
+    "fullName2":"DUF3450",
+    "description":"Pairwise comparison of the class1 catalytic domains from the DUF2 (<a href='/class1/DUF2'>DUF2</a>) and DUF3450 (<a href='/class1/DUF3450'>DUF3450</a>) families. \n\tThe cross-family RMSD is the average RMSD between pairs of structures from different families, and is\n\t larger than the total RMSD, which compares structures both within- and between-families. TM scores are bound between 0 and 1. \n\t This alignment was generated automatically using 3DCOMB (Wang et al. 2011) and was not corrected with any manual adjustment.",
+    "rmsd":    2.236,
+    "tm":    0.7509,
+    "rmsd1":    5.19,
+    "rmsd2":    5.73,
+    "crossFamilyRmsd":    5.26,
+    "rmsdTotal":    5.22,
+    "features":[
+
+    ]
+}

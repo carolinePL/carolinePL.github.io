@@ -1,0 +1,8 @@
+../../../alignment/DUF2341//data/structures/AAG04082.1.pdb
+../../../alignment/DUF2341//data/structures/QJE97904.1.pdb
+../../../alignment/DUF3450//data/structures/ACX73657.1.pdb
+../../../alignment/DUF3450//data/structures/ACX74513.1.pdb
+../../../alignment/DUF3450//data/structures/AKJ64800.1.pdb
+../../../alignment/DUF3450//data/structures/AQU99646.1.pdb
+../../../alignment/DUF3450//data/structures/ARN57239.1.pdb
+../../../alignment/DUF3450//data/structures/QAR33784.1.pdb
