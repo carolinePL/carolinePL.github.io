@@ -640,7 +640,7 @@ function getNameOfAccession(acc){
 		
 		if (metadata == null){
 			console.log("cannot find", acc);
-			return "error";
+			return acc;
 		}
 	}
 	

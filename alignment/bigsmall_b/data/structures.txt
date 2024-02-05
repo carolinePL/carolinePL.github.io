@@ -1,0 +1,2 @@
+structures/AAC74960.1.AAC74959.sensePlusOneAccession.pdb
+structures/ABA05559.1.ABA05560.sensePlusOneAccession.pdb

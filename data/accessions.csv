@@ -376,7 +376,7 @@ Bacteria,AUX22205.1,X,Pseudomonadota,Deltaproteobacteria,Myxococcales,Polyangiac
 Bacteria,AUX23472.1,X,Pseudomonadota,Deltaproteobacteria,Myxococcales,Polyangiaceae,Sorangium,Sorangium cellulosum,CP012670.1,AUX23472.1,NA,flagellar motor protein MotA,AUX23472.1_MotA_Sorangium
 Bacteria,AUX23532.1,X,Pseudomonadota,Deltaproteobacteria,Myxococcales,Polyangiaceae,Sorangium,Sorangium cellulosum,CP012670.1,AUX23532.1,NA,biopolymer transporter,AUX23532.1_Sorangium
 Bacteria,AUX24210.1,X,Pseudomonadota,Deltaproteobacteria,Myxococcales,Polyangiaceae,Sorangium,Sorangium cellulosum,CP012670.1,AUX24210.1,NA,flagellar motor protein MotA,AUX24210.1_MotA_Sorangium
-Bacteria,AWG41586.1,X,Spirochaetes,Spirochaetia,Spirochaetales,Treponemataceae,Treponema,Treponema pallidum subsp. pertenue,CP021113.1,AWG41586.1,NA,Mot family proton (H+) or sodium (Na+) transporter MotA,AWG41586.1
+Bacteria,AWG41586.1,mota,Spirochaetes,Spirochaetia,Spirochaetales,Treponemataceae,Treponema,Treponema pallidum subsp. pertenue,CP021113.1,AWG41586.1,NA,Mot family proton (H+) or sodium (Na+) transporter MotA,AWG41586.1
 Bacteria,AWI08418.1,X,Verrucomicrobia,Opitutae,Opitutales,Opitutaceae,Ereboglobus,Ereboglobus luteus,CP023004.1,AWI08418.1,NA,flagellar motor protein MotA,AWI08418.1_MotA_Ereboglobus
 Bacteria,BAC89328.1,X,Cyanobacteria,Gloeobacteria,Gloeobacterales,Gloeobacteraceae,Gloeobacter,Gloeobacter violaceus PCC 7421,BA000045.2,BAC89328.1,NA,glr1387,BAC89328.1
 Bacteria,BAD41956.1,X,Bacillota,Clostridia,Eubacteriales,Symbiobacteriaceae,Symbiobacterium,Symbiobacterium thermophilum IAM 14863,AP006840.1,BAD41956.1,NA,flagellar motor protein MotA,BAD41956.1_MotA_Symbiobacterium
@@ -434,5 +434,5 @@ Bacteria,UEO05650.1,X,Pseudomonadota,Deltaproteobacteria,Myxococcales,Myxococcac
 Bacteria,UEO05991.1,X,Pseudomonadota,Deltaproteobacteria,Myxococcales,Myxococcaceae,Myxococcus,Myxococcus xanthus DZ2,CP080538.1,UEO05991.1,NA,MotA/TolQ/ExbB proton channel family protein,UEO05991.1_AQB_Myxococcus
 Bacteria,UEO06636.1,X,Pseudomonadota,Deltaproteobacteria,Myxococcales,Myxococcaceae,Myxococcus,Myxococcus xanthus DZ2,CP080538.1,UEO06636.1,NA,MotA/TolQ/ExbB proton channel family protein,UEO06636.1_AQB_Myxococcus
 Bacteria,UEO07578.1,X,Pseudomonadota,Deltaproteobacteria,Myxococcales,Myxococcaceae,Myxococcus,Myxococcus xanthus DZ2,CP080538.1,UEO07578.1,NA,MotA/TolQ/ExbB proton channel family protein,UEO07578.1_AQB_Myxococcus
-Bacteria,UOY13875.1,X,Spirochaetes,Spirochaetia,Spirochaetales,Treponemataceae,Treponema,Treponema pallidum subsp. pallidum,CP095417.1,UOY13875.1,NA,motility protein A,UOY13875.1_MotA_Treponema
+Bacteria,UOY13875.1,mota,Spirochaetes,Spirochaetia,Spirochaetales,Treponemataceae,Treponema,Treponema pallidum subsp. pallidum,CP095417.1,UOY13875.1,NA,motility protein A,UOY13875.1_MotA_Treponema
 ,WP,X,,,,,,,,WP,NA,,WP_002721884.1_MotA_Cereibacter

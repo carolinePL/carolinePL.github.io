@@ -1,0 +1,7 @@
+structures/AAC76042.1.AAC76041.sensePlusOneAccession.pdb
+structures/ABA03969.1.ABA03970.sensePlusOneAccession.pdb
+structures/ABA05559.1.ABA05560.sensePlusOneAccession.pdb
+structures/ADL00174.1.ADL00175.sensePlusOneAccession.pdb
+structures/CDK97637.1.CDK97636.sensePlusOneAccession.pdb
+structures/QNQ08778.1.QNQ08777.sensePlusTwoAccession.pdb
+structures/QXB09426.1.QXB09425.antisensePlusTwoAccession.pdb

@@ -1,0 +1,6 @@
+structures/ACX73657.1.ACX73655.sensePlusTwoAccession.pdb
+structures/ACX74513.1.ACX74511.sensePlusTwoAccession.pdb
+structures/AKJ64800.1.AKJ64798.sensePlusTwoAccession.pdb
+structures/AQU99646.1.AQU99648.sensePlusTwoAccession.pdb
+structures/ARN57239.1.ARN57241.sensePlusTwoAccession.pdb
+structures/QAR33784.1.QAR33782.sensePlusTwoAccession.pdb
