@@ -1,0 +1,60 @@
+>structures/AAW78680_Bacteroidota_Flavobacterium_johnsoniae_alphafold.pdb
+ 0.965055  0.151931 -0.213507    -5.652229
+-0.184938  0.972119 -0.144164    -7.643277
+ 0.185651  0.178612  0.966246    -0.270097
+>structures/AMC11830_Bacteroidota_Lutibacter_profundi_alphafold.pdb
+ 0.284154 -0.050264  0.957460    -5.104666
+ 0.168952 -0.980373 -0.101608    10.395898
+ 0.943775  0.190637 -0.270084    10.860140
+>structures/ATA79511_Bacteroidota_Capnocytophaga_sputigena_alphafold.pdb
+-0.169599  0.504354 -0.846678    -9.307839
+-0.744457 -0.628518 -0.225276     7.168292
+-0.645771  0.592109  0.482066     8.675305
+>structures/BAG34194_Bacteroidota_Porphyromonas_gingivalis_alphafold.pdb
+-0.489889  0.056385 -0.869960    21.719549
+ 0.273641 -0.937527 -0.214856     5.657383
+-0.827726 -0.343312  0.443855    -8.277993
+>structures/GAK76339_Bacteroidota_Nonlabens_ulvanivorans_alphafold.pdb
+ 1.000000  0.000000  0.000000     0.000000
+ 0.000000  1.000000  0.000000     0.000000
+ 0.000000  0.000000  1.000000     0.000000
+>structures/HAV24856_Bacteroidota_Flavobacteriales_bacterium_alphafold.pdb
+ 0.735131 -0.641845 -0.218214     5.320066
+ 0.677841  0.700988  0.221692    -8.801688
+ 0.010674 -0.310887  0.950387    -0.310699
+>structures/KXB34207_Bacteroidota_Bacteroidales_bacterium_alphafold.pdb
+ 0.013474  0.861786 -0.507093    22.959663
+-0.581299 -0.405884 -0.705230    20.713966
+-0.813578  0.304275  0.495487   -28.574762
+>structures/MAD97906_Bacteroidota_Flavobacteriaceae_bacterium_alphafold.pdb
+ 0.318701  0.002443  0.947852    -8.368099
+ 0.219904 -0.972903 -0.071432     9.401397
+ 0.921994  0.231201 -0.310602     9.510697
+>structures/MAZ54331_Bacteroidota_Flavobacteriaceae_bacterium_alphafold.pdb
+ 0.139822 -0.153628  0.978186   -15.672365
+-0.070669 -0.986920 -0.144899     2.707621
+ 0.987652 -0.048868 -0.148850     3.462374
+>structures/NIK73758_Bacteroidota_Thermonema_lapsum_alphafold.pdb
+ 0.327146  0.004772  0.944962     9.399410
+-0.026839 -0.999537  0.014339     6.549124
+ 0.944592 -0.030052 -0.326867   -24.377060
+>structures/OJV27789_Bacteroidota_unclassified_alphafold.pdb
+-0.113561  0.727986  0.676122     4.594552
+ 0.703572 -0.421565  0.572074    10.612227
+ 0.701491  0.540665 -0.464317    -8.919807
+>structures/PWK23379_Bacteroidota_Arcicella_aurantiaca_alphafold.pdb
+ 0.418205 -0.315178  0.851920    17.267297
+-0.307993 -0.931517 -0.193433    11.208878
+ 0.854544 -0.181491 -0.486638   -24.549641
+>structures/SHF62763_Bacteroidota_Bacteroides_luti_alphafold.pdb
+ 0.602111 -0.028191  0.797915    16.692840
+-0.139060 -0.987804  0.070035     8.957687
+ 0.786209 -0.153126 -0.598688     0.993207
+>structures/TVR41725_Bacteroidota_Bacteroidia_bacterium_alphafold.pdb
+ 0.978310 -0.186425  0.090306     7.578420
+ 0.195803  0.974519 -0.109427     6.763637
+-0.067605  0.124736  0.989884    -8.104899
+>structures/TXD61378_Bacteroidota_Polaribacter_sp._alphafold.pdb
+ 0.271724  0.160465  0.948903    -5.715201
+ 0.337258 -0.939350  0.062274    10.673546
+ 0.901345  0.303104 -0.309362     9.978694
